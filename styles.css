@@ -1,0 +1,16 @@
+.que.pmatchjme .answer {
+    padding: 0.3em;
+    width: auto;
+    display: inline;
+}
+.que.pmatchjme .answer input {
+    width: 99%;
+}
+#page-question-type-pmatchjme .mform .textareamonospace {
+    white-space: pre;
+    font-family: Andale Mono, Monaco, Courier New, DejaVu Sans Mono, monospace;
+}
+
+.que.pmatchjme .answerinputfield {
+    display : none;
+}

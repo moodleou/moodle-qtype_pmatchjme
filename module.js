@@ -1,6 +1,6 @@
 M.qtype_pmatchjme={
     insert_jme_applet : function(Y, inputdivselector, appleturl, feedback, readonly){
-        var s= this.jme_applet_html(appleturl, 400, 400, feedback, readonly);
+        var s= this.jme_applet_html(appleturl, '100%', 400, feedback, readonly);
         var inputdiv = Y.one(inputdivselector);
         inputdiv.append(s);
         var appletnode = Y.one(inputdivselector+' applet');

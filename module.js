@@ -7,8 +7,8 @@ M.qtype_pmatchjme={
         this.polltimer = Y.later(1000, this, this.pool_for_applet_load,
                                 [Y, inputdivselector], true);
         inputdiv.ancestor('form').on('submit', function (){
-            Y.one(inputdivselector+' input.smiles').set('value', document.JME.smiles());
-            Y.one(inputdivselector+' input.answer').set('value', document.JME.jmeFile());
+            Y.one(inputdivselector+' input.answer').set('value', document.JME.smiles());
+            Y.one(inputdivselector+' input.jme').set('value', document.JME.jmeFile());
             Y.one(inputdivselector+' input.mol').set('value', document.JME.molFile());
         }, this);
     },
@@ -17,7 +17,7 @@ M.qtype_pmatchjme={
     pool_for_applet_load : function (Y, inputdivselector) {
         this.pollcount--;
         if (typeof (document.JME.readMolecule) === 'function') {
-            document.JME.readMolecule(Y.one(inputdivselector+' input.answer').get('value'));
+            document.JME.readMolecule(Y.one(inputdivselector+' input.jme').get('value'));
             this.polltimer.cancel();
         } else if (pollcount === 0) {
             this.polltimer.cancel();

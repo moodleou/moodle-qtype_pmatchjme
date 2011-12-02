@@ -37,4 +37,7 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
     public function qtype() {
         return 'pmatchjme';
     }
+
+    protected function general_answer_fields($mform) {
+    }
 }

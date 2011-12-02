@@ -36,6 +36,6 @@ require_once($CFG->dirroot.'/question/type/pmatch/question.php');
  */
 class qtype_pmatchjme_question extends qtype_pmatch_question {
     public function get_expected_data() {
-        return array('smiles' => PARAM_RAW, 'answer' => PARAM_RAW, 'mol' => PARAM_RAW);
+        return array('answer' => PARAM_RAW, 'jme' => PARAM_RAW, 'mol' => PARAM_RAW);
     }
 }

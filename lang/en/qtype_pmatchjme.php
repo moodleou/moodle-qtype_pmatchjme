@@ -24,11 +24,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 $string['addingpmatchjme'] = 'Adding a pattern match with JME editor question';
+$string['allowanothertry'] = 'Allow another try';
 $string['editingpmatchjme'] = 'Editing a pattern match with JME editor question';
+$string['enablejava'] = 'You have to enable Java to use the JME editor!';
 $string['pmatchjme'] = 'Pattern match with JME editor';
 $string['pmatchjme_help'] = 'In response to a question (that may include a image) the respondent uses the JME editor to describe a molecular structure. There may be several possible correct answers, each with a different grade.';
 $string['pmatchjme_link'] = 'question/type/pmatchjme';
 $string['pmatchjmesummary'] = 'Allows drawing a molecule using the JME editor. The resonse is graded by comparing against various model answers, which are described using the OU\'s pattern match syntax.';
-$string['enablejava'] = 'You have to enable Java to use the JME editor!';

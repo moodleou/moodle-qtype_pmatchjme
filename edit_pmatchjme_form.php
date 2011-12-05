@@ -40,4 +40,20 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
 
     protected function general_answer_fields($mform) {
     }
+
+    protected function data_preprocessing_hints($question, $withclearwrong = false,
+                                                $withshownumpartscorrect = false) {
+        $withclearwrong = true;
+        return parent::data_preprocessing_hints($question, $withclearwrong, $withshownumpartscorrect);
+    }
+
+    protected function get_hint_fields($withclearwrong = false, $withshownumpartscorrect = false) {
+        list($repeated, $repeatedoptions) = parent::get_hint_fields(false, false);
+
+        $mform = $this->_form;
+        $repeated[] = $mform->createElement('advcheckbox', 'hintclearwrong',
+                                            get_string('options', 'question'),
+                                            get_string('allowanothertry', 'qtype_pmatchjme'));
+        return array($repeated, $repeatedoptions);
+    }
 }

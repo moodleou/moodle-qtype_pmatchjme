@@ -46,4 +46,7 @@ class qtype_pmatchjme extends qtype_pmatch {
         $question->converttospace = '';
         return parent::save_question_options($question);
     }
+    public function save_hints($formdata, $withparts = false) {
+        parent::save_hints($formdata, true);
+    }
 }

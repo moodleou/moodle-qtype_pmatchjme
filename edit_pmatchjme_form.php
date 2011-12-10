@@ -72,7 +72,7 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
                                             get_string('allowanothertry', 'qtype_pmatchjme'));
         return array($repeated, $repeatedoptions);
     }
-    
+
     /**
      * Perform the necessary preprocessing for the fields added by
      * {@link add_per_answer_fields()}.
@@ -106,5 +106,30 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
 
         return $question;
     }
-
+    protected function straight_smiles_string_match($string) {
+        return (1 == preg_match('!match\(([a-z0-9=\(\)@\-+\.>\[\]]|\[|\])+\)!i', $string));
+    }
+    public function validation($data, $files) {
+        $errors = parent::validation($data, $files);
+        $answers = $data['answer'];
+        $answercount = 0;
+        $maxgrade = false;
+        foreach ($answers as $key => $answer) {
+            $nowhitespaceanswer = preg_replace('!\s!', '', $answer);
+            if ($nowhitespaceanswer !== '') {
+                if ($data['fraction'][$key] == 1 && !$maxgrade) {
+                    $maxgrade = true;
+                    if (!$this->straight_smiles_string_match($nowhitespaceanswer)) {
+                        $errors["answer[$key]"]
+                            = get_string('firstcorrectanswermustbestraightmatch', 'qtype_pmatchjme');
+                    }
+                    if (!empty($data['atomcount'][$key])) {
+                        $errors["atomcount[$key]"]
+                            = get_string('firstcorrectanswermustnotrequireatomcountfeedback', 'qtype_pmatchjme');
+                    }
+                }
+            }
+        }
+        return $errors;
+    }
 }

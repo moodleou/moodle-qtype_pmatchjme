@@ -37,6 +37,7 @@ require_once($CFG->dirroot . '/question/type/pmatch/questiontype.php');
  */
 class qtype_pmatchjme extends qtype_pmatch {
     public function save_question_options($question) {
+        global $DB;
         $question->usecase = 1;
         $question->allowsubscript = 0;
         $question->allowsuperscript = 0;
@@ -44,9 +45,24 @@ class qtype_pmatchjme extends qtype_pmatch {
         $question->applydictionarycheck = 0;
         $question->extenddictionary = '';
         $question->converttospace = '';
+        if (!empty($question->id)) {
+            $answerids = $DB->get_records_menu('question_answers', array('question' => $question->id), '', 'id, 1');
+            list ($sql, $params) = $DB->get_in_or_equal(array_keys($answerids));
+            $DB->delete_records_select('qtype_pmatchjme_answers', "answerid $sql", $params);
+        }
         return parent::save_question_options($question);
     }
     public function save_hints($formdata, $withparts = false) {
         parent::save_hints($formdata, true);
+    }
+    protected function extra_answer_fields() {
+        return array('qtype_pmatchjme_answers', 'atomcount');
+    }
+    public function save_extra_answer_data($question, $key, $answerid) {
+        global $DB;
+        $extraanswerdata = new stdClass();
+        $extraanswerdata->answerid = $answerid;
+        $extraanswerdata->atomcount = $question->atomcount[$key];
+        $DB->insert_record('qtype_pmatchjme_answers', $extraanswerdata);
     }
 }

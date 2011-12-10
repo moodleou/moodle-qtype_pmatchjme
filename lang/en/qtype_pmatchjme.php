@@ -26,6 +26,7 @@
 
 $string['addingpmatchjme'] = 'Adding a pattern match with JME editor question';
 $string['allowanothertry'] = 'Allow another try';
+$string['atomcount'] = 'Atom count feedback';
 $string['editingpmatchjme'] = 'Editing a pattern match with JME editor question';
 $string['enablejava'] = 'You have to enable Java to use the JME editor!';
 $string['pmatchjme'] = 'Pattern match with JME editor';

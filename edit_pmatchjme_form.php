@@ -41,10 +41,26 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
     protected function general_answer_fields($mform) {
     }
 
+    protected function get_per_answer_fields($mform, $label, $gradeoptions,
+                                                            &$repeatedoptions, &$answersoption) {
+        $repeated = parent::get_per_answer_fields($mform, $label, $gradeoptions,
+                                                            &$repeatedoptions, &$answersoption);
+        $repeated[] = $mform->createElement('advcheckbox', 'atomcount', '',
+                                                        get_string('atomcount', 'qtype_pmatchjme'));
+        return $repeated;
+    }
+
+    protected function add_other_answer_fields($mform) {
+        parent::add_other_answer_fields($mform);
+        $mform->addElement('advcheckbox', 'atomcount[other]', '',
+                                                        get_string('atomcount', 'qtype_pmatchjme'));
+    }
+
     protected function data_preprocessing_hints($question, $withclearwrong = false,
                                                 $withshownumpartscorrect = false) {
         $withclearwrong = true;
-        return parent::data_preprocessing_hints($question, $withclearwrong, $withshownumpartscorrect);
+        return parent::data_preprocessing_hints($question, $withclearwrong,
+                                                                        $withshownumpartscorrect);
     }
 
     protected function get_hint_fields($withclearwrong = false, $withshownumpartscorrect = false) {
@@ -56,4 +72,39 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
                                             get_string('allowanothertry', 'qtype_pmatchjme'));
         return array($repeated, $repeatedoptions);
     }
+    
+    /**
+     * Perform the necessary preprocessing for the fields added by
+     * {@link add_per_answer_fields()}.
+     * @param object $question the data being passed to the form.
+     * @return object $question the modified data.
+     */
+    protected function data_preprocessing_answers($question) {
+        $question = parent::data_preprocessing_answers($question);
+        if (empty($question->options->answers)) {
+            return $question;
+        }
+        $key = 0;
+        foreach ($question->options->answers as $answer) {
+            $question->atomcount[$key] = $answer->atomcount;
+            $key++;
+        }
+        return $question;
+    }
+    protected function data_preprocessing_other_answer($question) {
+        if (!empty($question->options->answers)) {
+            foreach ($question->options->answers as $key => $answer) {
+                if ($answer->answer == '*') {
+                    if (!isset($question->atomcount)) {
+                        $question->atomcount = array();
+                    }
+                    $question->atomcount['other'] = $answer->atomcount;
+                }
+            }
+        }
+        $question = parent::data_preprocessing_other_answer($question);
+
+        return $question;
+    }
+
 }

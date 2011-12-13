@@ -68,8 +68,10 @@ class qtype_pmatchjme extends qtype_pmatch {
         $question->converttospace = '';
         if (!empty($question->id)) {
             $answerids = $DB->get_records_menu('question_answers', array('question' => $question->id), '', 'id, 1');
-            list ($sql, $params) = $DB->get_in_or_equal(array_keys($answerids));
-            $DB->delete_records_select('qtype_pmatchjme_answers', "answerid $sql", $params);
+            if (count($answerids) != 0) {
+                list ($sql, $params) = $DB->get_in_or_equal(array_keys($answerids));
+                $DB->delete_records_select('qtype_pmatchjme_answers', "answerid $sql", $params);
+            }
         }
         return parent::save_question_options($question);
     }

@@ -147,4 +147,27 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
         }
         return $response;
     }
+
+    public function specific_feedback(question_attempt $qa) {
+        $question = $qa->get_question();
+
+        $answer = $question->get_matching_answer($this->get_last_response($qa));
+        if (!$answer) {
+            return '';
+        }
+
+        $feedback = array();
+        if ($answer->feedback) {
+            $feedback[] = $question->format_text($answer->feedback, $answer->feedbackformat,
+                    $qa, 'question', 'answerfeedback', $answer->id);
+        }
+        if ($answer->atomcount) {
+            $response = $this->get_last_response($qa);
+            $feedback = array_merge($feedback, $question->check_atom_count($response));
+        }
+
+        return join('<br />', $feedback);
+    }
+
+
 }

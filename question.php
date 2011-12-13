@@ -110,4 +110,10 @@ class qtype_pmatchjme_question extends qtype_pmatch_question {
         }
         return $count;
     }
+
+    public function start_attempt(question_attempt_step $step) {
+    }
+
+    public function apply_attempt_state(question_attempt_step $step) {
+    }
 }

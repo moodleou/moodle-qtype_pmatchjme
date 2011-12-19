@@ -67,11 +67,7 @@ class qtype_pmatchjme extends qtype_pmatch {
         $question->extenddictionary = '';
         $question->converttospace = '';
         if (!empty($question->id)) {
-            $answerids = $DB->get_records_menu('question_answers', array('question' => $question->id), '', 'id, 1');
-            if (count($answerids) != 0) {
-                list ($sql, $params) = $DB->get_in_or_equal(array_keys($answerids));
-                $DB->delete_records_select('qtype_pmatchjme_answers', "answerid $sql", $params);
-            }
+            $this->delete_extra_answer_records($question->id);
         }
         return parent::save_question_options($question);
     }
@@ -112,5 +108,17 @@ class qtype_pmatchjme extends qtype_pmatch {
             }
         }
     }
-
+    public function delete_question($questionid, $contextid) {
+        $this->delete_extra_answer_records($questionid);
+        parent::delete_question($questionid, $contextid);
+    }
+    protected function delete_extra_answer_records($questionid) {
+        $answerids = $DB->get_records_menu('question_answers',
+                                           array('question' => $questionid),
+                                           '', 'id, 1');
+        if (count($answerids) != 0) {
+            list ($sql, $params) = $DB->get_in_or_equal(array_keys($answerids));
+            $DB->delete_records_select('qtype_pmatchjme_answers', "answerid $sql", $params);
+        }
+    }
 }

@@ -19,7 +19,7 @@ M.qtype_pmatchjme={
         if (typeof (document.JME.readMolecule) === 'function') {
             document.JME.readMolecule(Y.one(inputdivselector+' input.jme').get('value'));
             this.polltimer.cancel();
-        } else if (pollcount === 0) {
+        } else if (this.pollcount === 0) {
             this.polltimer.cancel();
         }
     },

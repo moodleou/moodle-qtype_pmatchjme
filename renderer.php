@@ -46,11 +46,15 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
             $placeholder = $matches[0];
         }
 
-        $toreplaceid = 'warningmessage'.$qa->get_slot();
+        $toreplaceid = 'applet'.$qa->get_slot();
         $toreplace = html_writer::tag('span',
                                       get_string('enablejavaandjavascript', 'qtype_pmatchjme'),
                                       array('id' => $toreplaceid));
+
         if ($placeholder) {
+            $toreplace = html_writer::tag('span',
+                                      get_string('enablejavaandjavascript', 'qtype_pmatchjme'),
+                                      array('class' => 'ablock'));
             $questiontext = substr_replace($questiontext,
                                             $toreplace,
                                             strpos($questiontext, $placeholder),
@@ -90,7 +94,6 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
             )
         );
         $topnode = 'div.que.pmatchjme#q'.$qa->get_slot();
-        $inputdivselector = $topnode.' .inputcontrol';
         $appleturl = new moodle_url('/question/type/pmatchjme/jme/JME.jar');
         if ($correctness) {
             $feedbackimage = $this->feedback_image($this->fraction_for_last_response($qa));
@@ -103,7 +106,7 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
                                       array($toreplaceid,
                                             $name,
                                             $appletid,
-                                            $inputdivselector,
+                                            $topnode,
                                             $appleturl->out(),
                                             $feedbackimage,
                                             $readonly),

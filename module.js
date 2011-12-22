@@ -3,33 +3,43 @@
 
 
 M.qtype_pmatchjme={
-    insert_jme_applet : function(Y, toreplaceid, appletid, name, inputdivselector,
+    insert_jme_applet : function(Y, toreplaceid, appletid, name, topnode,
                                                                     appleturl, feedback, readonly){
-        var javaparams = [];
+        var javaparams = ['jme', Y.one(topnode+' input.jme').get('value')];
         if (readonly) {
-            javaparams = ["options", "depict"];;
+            javaparams[javaparams.length] = "options";
+            javaparams[javaparams.length] = "depict";
         }
-        this.show_java(toreplaceid, appletid, name, appleturl, 288, 312, 'JME.class', javaparams);
-        var inputdiv = Y.one(inputdivselector);
-        this.polltimer = Y.later(1000, this, this.poll_for_applet_load,
-                                [Y, inputdivselector, name], true);
-        inputdiv.ancestor('form').on('submit', function (){
-            Y.one(inputdivselector+' input.answer').set('value', document[name].smiles());
-            Y.one(inputdivselector+' input.jme').set('value', document[name].jmeFile());
-            Y.one(inputdivselector+' input.mol').set('value', document[name].molFile());
-        }, this);
-    },
-    polltimer : null,
-    pollcount : 100,
-    poll_for_applet_load : function (Y, inputdivselector, name) {
-        this.pollcount--;
-        if (document[name].isActive()) {
-            document[name].readMolecule(Y.one(inputdivselector+' input.jme').get('value'));
-            this.polltimer.cancel();
-        } else if (this.pollcount === 0) {
-            this.polltimer.cancel();
+        if (!this.show_java(toreplaceid, appletid, name, appleturl,
+                                                            288, 312, 'JME.class', javaparams)) {
+            this.show_error(Y, topnode);
+        } else {
+            var inputdiv = Y.one(topnode);
+            inputdiv.ancestor('form').on('submit', function (){
+                Y.one(topnode+' input.answer').set('value', this.find_java_applet(name).smiles());
+                Y.one(topnode+' input.jme').set('value', this.find_java_applet(name).jmeFile());
+                Y.one(topnode+' input.mol').set('value', this.find_java_applet(name).molFile())
+            }, this);
         }
     },
+    show_error : function (Y, topnode) {
+        var errormessage = '<span class ="javawarning">'
+            +M.util.get_string('enablejava', 'qtype_pmatchjme')+
+            '</span>';
+        Y.one(topnode+ ' .ablock').insert(errormessage, 1);
+    },
+    /**
+     * Gets around problem in ie6 using name
+     */
+    find_java_applet : function (appletname) {
+        for (appletno in document.applets) {
+            if (document.applets[appletno].name == appletname) {
+                return document.applets[appletno];
+            }
+        }
+        return null;
+    },
+
     nextappletid : 1,
     javainstalled : -99,
     doneie6focus : 0,
@@ -40,8 +50,11 @@ M.qtype_pmatchjme={
             this.javainstalled = PluginDetect.isMinVersion(
                 'Java', 1.5, 'plugindetect.getjavainfo.jar', [0, 2, 0]) == 1;
         }
-
-
+        var warningspan = document.getElementById(id);
+        warningspan.innerHTML = '';
+        if (!this.javainstalled) {
+            return false;
+        }
         var newApplet = document.createElement("applet");
         newApplet.code=appletclass;
         newApplet.archive=java;
@@ -61,11 +74,6 @@ M.qtype_pmatchjme={
             param.value=javavars[i+1];
             newApplet.appendChild(param);
         }
-        var warningspan = document.getElementById(id);
-        warningspan.innerHTML = '';
-        var nextwarning = document.createElement('span');
-        nextwarning.innerHTML = M.util.get_string('enablejava', 'qtype_pmatchjme');
-        newApplet.appendChild(nextwarning);
         warningspan.appendChild(newApplet);
 
         if(document.body.className.indexOf('ie6')!=-1 && !this.doneie6focus) {
@@ -90,5 +98,6 @@ M.qtype_pmatchjme={
             setTimeout(fixFocus, 100);
             this.doneie6focus=1;
         }
+        return true;
     }
 }

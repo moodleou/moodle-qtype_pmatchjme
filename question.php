@@ -69,6 +69,10 @@ class qtype_pmatchjme_question extends qtype_pmatch_question {
         return $messages;
     }
     protected function part_comparison($answercount, $responsecount, $part) {
+        $stringidentifierreplacements = array('=' => 'equals', '#' => 'hash');
+        if (isset($stringidentifierreplacements[$part])) {
+            $part = $stringidentifierreplacements[$part];
+        }
         $humanreadablepart = get_string('smiles_'.$part, 'qtype_pmatchjme');
         if ($answercount < $responsecount) {
             $message = get_string('smilestoomany', 'qtype_pmatchjme', $humanreadablepart);

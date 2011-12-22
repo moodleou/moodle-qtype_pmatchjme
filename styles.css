@@ -11,6 +11,7 @@
     font-family: Andale Mono, Monaco, Courier New, DejaVu Sans Mono, monospace;
 }
 
-.que.pmatchjme .answerinputfield {
-    display : none;
+
+.que.pmatchjme span.answerlabel {
+    vertical-align: top;
 }

@@ -60,9 +60,9 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
         $result = html_writer::tag('div', $questiontext, array('class' => 'qtext'));
 
         if (!$placeholder) {
-            $result .= html_writer::tag('div',
-                                        get_string('answer', 'qtype_pmatch', $toreplace),
-                                        array('class' => 'ablock'));
+            $answerlabel = html_writer::tag('span', get_string('answer', 'qtype_pmatch', ''),
+                                            array('class' => 'answerlabel'));
+            $result .= html_writer::tag('div', $answerlabel.$toreplace, array('class' => 'ablock'));
         }
 
         if ($qa->get_state() == question_state::$invalid) {

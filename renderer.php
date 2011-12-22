@@ -40,29 +40,29 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
 
         $question = $qa->get_question();
 
-        $input = html_writer::tag('div',
-                                        $this->hidden_fields($qa),
-                                        array('class' => 'inputcontrol')
-                                    );
-
         $questiontext = $question->format_questiontext($qa);
         $placeholder = false;
         if (preg_match('/_____+/', $questiontext, $matches)) {
             $placeholder = $matches[0];
         }
 
+        $toreplaceid = 'warningmessage'.$qa->get_slot();
+        $toreplace = html_writer::tag('span',
+                                      get_string('enablejavaandjavascript', 'qtype_pmatchjme'),
+                                      array('id' => $toreplaceid));
         if ($placeholder) {
-            $questiontext = substr_replace($questiontext, $input,
-                    strpos($questiontext, $placeholder), strlen($placeholder));
+            $questiontext = substr_replace($questiontext,
+                                            $toreplace,
+                                            strpos($questiontext, $placeholder),
+                                            strlen($placeholder));
         }
 
         $result = html_writer::tag('div', $questiontext, array('class' => 'qtext'));
 
         if (!$placeholder) {
-            $result .= html_writer::start_tag('div', array('class' => 'ablock'));
-            $result .= get_string('answer', 'qtype_pmatch',
-                    html_writer::tag('div', $input, array('class' => 'answer')));
-            $result .= html_writer::end_tag('div');
+            $result .= html_writer::tag('div',
+                                        get_string('answer', 'qtype_pmatch', $toreplace),
+                                        array('class' => 'ablock'));
         }
 
         if ($qa->get_state() == question_state::$invalid) {
@@ -71,12 +71,15 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
                                                 $question->get_validation_error($lastresponse),
                                                 array('class' => 'validationerror'));
         }
+        $result .= html_writer::tag('div',
+                                    $this->hidden_fields($qa),
+                                    array('class' => 'inputcontrol'));
 
-        $this->require_js($qa, $options->readonly, $options->correctness);
+        $this->require_js($toreplaceid, $qa, $options->readonly, $options->correctness);
 
         return $result;
     }
-    protected function require_js(question_attempt $qa, $readonly, $correctness) {
+    protected function require_js($toreplaceid, question_attempt $qa, $readonly, $correctness) {
         global $PAGE;
         $jsmodule = array(
             'name'     => 'qtype_pmatchjme',
@@ -94,8 +97,13 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
         } else {
             $feedbackimage = '';
         }
+        $name = 'JME'.$qa->get_slot();
+        $appletid = 'jme'.$qa->get_slot();
         $PAGE->requires->js_init_call('M.qtype_pmatchjme.insert_jme_applet',
-                                      array($inputdivselector,
+                                      array($toreplaceid,
+                                            $name,
+                                            $appletid,
+                                            $inputdivselector,
                                             $appleturl->out(),
                                             $feedbackimage,
                                             $readonly),

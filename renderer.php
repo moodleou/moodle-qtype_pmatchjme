@@ -167,17 +167,29 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
             return '';
         }
 
-        $feedback = array();
+        $feedback = '';
         if ($answer->feedback) {
-            $feedback[] = $question->format_text($answer->feedback, $answer->feedbackformat,
+            $feedback .= $question->format_text($answer->feedback, $answer->feedbackformat,
                     $qa, 'question', 'answerfeedback', $answer->id);
         }
         if ($answer->atomcount) {
             $response = $this->get_last_response($qa);
-            $feedback = array_merge($feedback, $question->check_atom_count($response));
+            $atomcountfeedbacks = $question->check_atom_count($response);
+            if (count($atomcountfeedbacks) > 1) {
+                $listitems = '';
+                foreach ($atomcountfeedbacks as $atomcountfeedback) {
+                    $listitems .= html_writer::tag('li', $atomcountfeedback);
+                }
+                $ul = html_writer::tag('ul', $listitems);
+                $feedback .= html_writer::tag('div', $ul, array('class' => 'atomcountfeedback'));
+            } else if (count($atomcountfeedbacks) === 1) {
+                $feedbackitem = array_shift($atomcountfeedbacks);
+                $feedback .= html_writer::tag('div', $feedbackitem,
+                                                            array('class' => 'atomcountfeedback'));
+            }
         }
 
-        return join('<br />', $feedback);
+        return $feedback;
     }
 
 

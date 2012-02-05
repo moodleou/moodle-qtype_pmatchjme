@@ -74,7 +74,7 @@ class qtype_pmatchjme extends qtype_pmatch {
     public function save_hints($formdata, $withparts = false) {
         parent::save_hints($formdata, true);
     }
-    protected function extra_answer_fields() {
+    public function extra_answer_fields() {
         return array('qtype_pmatchjme_answers', 'atomcount');
     }
     public function save_extra_answer_data($question, $key, $answerid) {

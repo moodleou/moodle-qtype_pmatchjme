@@ -10,25 +10,25 @@ matching algorithm. See http://docs.moodle.org/dev/The_OU_PMatch_algorithm
 This question type is compatible with Moodle 2.1+ (MOODLE_21_STABLE branch) or 2.2+ (master branch).
 
 This question type requires that the pmatch question type
-https://github.com/jamiepratt/moodle-qtype_pmatch/
+https://github.com/moodleou/moodle-qtype_pmatch/
 to be installed in order to work.
 
 To install using git for a 2.2+ Moodle installation, type this command in the root of your Moodle
 install :
 
-    git clone git://github.com/jamiepratt/moodle-qtype_ddmarker.git question/type/ddmarker
+    git clone git://github.com/moodleou/moodle-qtype_ddmarker.git question/type/pmatchjme
     echo '/question/type/pmatchjme' >> .git/info/exclude
 
 To install using git for a 2.1+ Moodle installation, type this command in the root of your Moodle
 install :
 
-    git clone  -b MOODLE_21_STABLE git://github.com/jamiepratt/moodle-qtype_ddmarker.git question/type/ddmarker
+    git clone  -b MOODLE_21_STABLE git://github.com/moodleou/moodle-qtype_ddmarker.git question/type/pmatchjme
     echo '/question/type/pmatchjme' >> .git/info/exclude
 
 
 Alternatively, download the zip from
 
-    https://github.com/jamiepratt/moodle-qtype_pmatchjme/zipball/master
+    https://github.com/moodleou/moodle-qtype_pmatchjme/zipball/master
 
 Unzip it into the question/type folder, and then rename the new folder to pmatchjme.
 

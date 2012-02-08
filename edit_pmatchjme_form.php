@@ -107,7 +107,8 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
         return $question;
     }
     protected function straight_smiles_string_match($string) {
-        return (1 == preg_match('!match\(([a-z0-9=\(\)@\-+\.>\[\]]|\[|\])+\)!i', $string));
+        $ciw = '('.PMATCH_CHARACTER .'|'. '\\\\'.PMATCH_SPECIAL_CHARACTER.')';
+        return (1 == preg_match("!match\({$ciw}+\)!i", $string));
     }
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);

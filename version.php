@@ -15,19 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Short answer question type version information.
+ * Pattern match with JME question type version information.
  *
- * @package    qtype
- * @subpackage pmatchjme
- * @copyright  1999 onwards Martin Dougiamas {@link http://moodle.com}
+ * @package    qtype_pmatchjme
+ * @copyright  2011 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2011120901;
-$plugin->requires = 2010090501;
+$plugin->version   = 2011120901;
+$plugin->requires  = 2011120500;
+$plugin->cron      = 0;
+$plugin->component = 'qtype_pmatchjme';
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->release   = '1.0';
 
 $plugin->dependencies = array(
-    'qtype_pmatch' => 2010090501
+    'qtype_pmatch' => 2010090501,
 );

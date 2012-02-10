@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/question/type/pmatch/pmatchlib.php');
 
 
-class pmatch_parse_string_test extends UnitTestCase {
+class pmatchjme_parse_string_test extends UnitTestCase {
 
 
     protected function match($string, $expression, $options = null) {

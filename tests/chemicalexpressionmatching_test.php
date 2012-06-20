@@ -19,17 +19,24 @@
  *
  * @package    qtype
  * @subpackage pmatchjme
- * @copyright  2009 The Open University
+ * @copyright  2012 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 defined('MOODLE_INTERNAL') || die();
+global $CFG;
 
 require_once($CFG->dirroot . '/question/type/pmatch/pmatchlib.php');
 
-
-class pmatchjme_parse_string_test extends UnitTestCase {
+/**
+ * Unit tests for the pmatchjme response parsing and use of pmatch for SMILES strings.
+ *
+ * @copyright  2012 The Open University
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @group      qtype_pmatchjme
+ */
+class pmatchjme_parse_string_test extends basic_testcase {
 
 
     protected function match($string, $expression, $options = null) {
@@ -42,10 +49,10 @@ class pmatchjme_parse_string_test extends UnitTestCase {
         $options = new pmatch_options();
 
         $parsedstring = new pmatch_parsed_string('CC(=O)O', $options);
-        $this->assertEqual($parsedstring->get_words(), array('CC(=O)O'));
+        $this->assertEquals($parsedstring->get_words(), array('CC(=O)O'));
 
         $parsedstring = new pmatch_parsed_string('CC2COc1ccccc1N2C(=O)C(Cl)Cl', $options);
-        $this->assertEqual($parsedstring->get_words(), array('CC2COc1ccccc1N2C(=O)C(Cl)Cl'));
+        $this->assertEquals($parsedstring->get_words(), array('CC2COc1ccccc1N2C(=O)C(Cl)Cl'));
     }
 
     public function test_pmatch_matching() {

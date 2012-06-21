@@ -19,8 +19,9 @@
  *
  * @since      2.0
  * @package    qtype
- * @subpackage pmatch
- * @copyright  Dongsheng Cai <dongsheng@moodle.com>
+ * @subpackage pmatchjme
+ * @copyright  2012 The Open University
+ * @author     Jamie Pratt <me@jamiep.org>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

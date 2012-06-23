@@ -32,5 +32,5 @@ $plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = '1.0';
 
 $plugin->dependencies = array(
-    'qtype_pmatch' => 2010090501,
+    'qtype_pmatch' => 2012062300,
 );

@@ -39,6 +39,11 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
     }
 
     protected function general_answer_fields($mform) {
+        $mform->addElement('header', 'generalheader', get_string('answeringoptions', 'qtype_pmatchjme'));
+        $mform->addElement('advcheckbox', 'allowsuperscript', '', get_string('autoez', 'qtype_pmatchjme'));
+        $mform->setDefault('allowsuperscript', '1');
+        $mform->addElement('advcheckbox', 'allowsubscript', '', get_string('nostereo', 'qtype_pmatchjme'));
+        $mform->setDefault('allowsubscript', '0');
     }
 
     protected function get_per_answer_fields($mform, $label, $gradeoptions,
@@ -132,5 +137,9 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
             }
         }
         return $errors;
+    }
+
+    protected function place_holder_errors($questiontext, $usesub) {
+        return array();
     }
 }

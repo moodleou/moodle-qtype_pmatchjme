@@ -26,12 +26,15 @@
 
 $string['addingpmatchjme'] = 'Adding a pattern match with JME editor question';
 $string['allowanothertry'] = 'Allow another try';
+$string['answeringoptions'] = 'Options for JME editor';
 $string['atomcount'] = 'Atom count feedback';
+$string['autoez'] = 'Automatic generation of SMILES with E,Z stereochemistry ("autoez")';
 $string['editingpmatchjme'] = 'Editing a pattern match with JME editor question';
 $string['enablejava'] = 'Tried but failed to load JME editor. You have not got a JAVA runtime environment working in your browser. You will need one to attempt this question.';
 $string['enablejavaandjavascript'] = 'Loading JME editor.... If this message does not get replaced by the JME editor then you have not got javascript and a JAVA runtime environment working in your browser.';
 $string['firstcorrectanswermustbestraightmatch'] = 'First correct answer must be a straight match of a SMILES string with no wild cards like match(SMILESEXPRESSION).';
 $string['firstcorrectanswermustnotrequireatomcountfeedback'] = 'First correct answer can not require atom count feedback';
+$string['nostereo'] = 'Stereochemistry not considered when creating SMILES ("nostereo")';
 $string['pluginname'] = 'Pattern match with JME editor';
 $string['pmatchjme'] = 'Pattern match with JME editor';
 $string['pmatchjme_help'] = 'In response to a question (that may include a image) the respondent uses the JME editor to describe a molecular structure. There may be several possible correct answers, each with a different grade.';

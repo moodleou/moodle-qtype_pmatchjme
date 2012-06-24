@@ -79,11 +79,12 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
                                     $this->hidden_fields($qa),
                                     array('class' => 'inputcontrol'));
 
-        $this->require_js($toreplaceid, $qa, $options->readonly, $options->correctness);
+        $this->require_js($toreplaceid, $qa, $options->readonly, $options->correctness,
+                                                                $question->allowsubscript, $question->allowsuperscript);
 
         return $result;
     }
-    protected function require_js($toreplaceid, question_attempt $qa, $readonly, $correctness) {
+    protected function require_js($toreplaceid, question_attempt $qa, $readonly, $correctness, $nostereo, $autoez) {
         global $PAGE;
         $jsmodule = array(
             'name'     => 'qtype_pmatchjme',
@@ -109,7 +110,9 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
                                             $topnode,
                                             $appleturl->out(),
                                             $feedbackimage,
-                                            $readonly),
+                                            $readonly,
+                                            (bool)$nostereo,
+                                            (bool)$autoez),
                                       false,
                                       $jsmodule);
     }

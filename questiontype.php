@@ -60,8 +60,6 @@ class qtype_pmatchjme extends qtype_pmatch {
     public function save_question_options($question) {
         global $DB;
         $question->usecase = 1;
-        $question->allowsubscript = 0;
-        $question->allowsuperscript = 0;
         $question->forcelength = 0;
         $question->applydictionarycheck = 0;
         $question->extenddictionary = '';

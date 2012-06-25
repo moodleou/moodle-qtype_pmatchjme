@@ -4,12 +4,24 @@
 
 M.qtype_pmatchjme={
     insert_jme_applet : function(Y, toreplaceid, appletid, name, topnode,
-                                                                    appleturl, feedback, readonly){
+                                                                    appleturl, feedback, readonly, nostereo, autoez){
         var javaparams = ['jme', Y.one(topnode+' input.jme').get('value')];
-        if (readonly) {
-            javaparams[javaparams.length] = "options";
-            javaparams[javaparams.length] = "depict";
+        var jmeoptions = new Array();
+
+        if (nostereo) {
+            jmeoptions[jmeoptions.length] = "nostereo";
         }
+        if (autoez) {
+            jmeoptions[jmeoptions.length] = "autoez";
+        }
+        if (readonly) {
+            jmeoptions[jmeoptions.length] = "depict";
+        }
+        if (jmeoptions.length !== 0) {
+            javaparams[javaparams.length] = "options";
+            javaparams[javaparams.length] = jmeoptions.join(',');
+        }
+
         if (!this.show_java(toreplaceid, appletid, name, appleturl,
                                                             288, 312, 'JME.class', javaparams)) {
             this.show_error(Y, topnode);

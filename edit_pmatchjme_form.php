@@ -46,10 +46,8 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
         $mform->setDefault('allowsubscript', '0');
     }
 
-    protected function get_per_answer_fields($mform, $label, $gradeoptions,
-                                                            &$repeatedoptions, &$answersoption) {
-        $repeated = parent::get_per_answer_fields($mform, $label, $gradeoptions,
-                                                            &$repeatedoptions, &$answersoption);
+    protected function get_per_answer_fields($mform, $label, $gradeoptions, &$repeatedoptions, &$answersoption) {
+        $repeated = parent::get_per_answer_fields($mform, $label, $gradeoptions, $repeatedoptions, $answersoption);
         $repeated[] = $mform->createElement('advcheckbox', 'atomcount', '',
                                                         get_string('atomcount', 'qtype_pmatchjme'));
         return $repeated;
@@ -57,8 +55,7 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
 
     protected function add_other_answer_fields($mform) {
         parent::add_other_answer_fields($mform);
-        $mform->addElement('advcheckbox', 'atomcount[other]', '',
-                                                        get_string('atomcount', 'qtype_pmatchjme'));
+        $mform->addElement('advcheckbox', 'atomcount[other]', '', get_string('atomcount', 'qtype_pmatchjme'));
     }
 
     protected function data_preprocessing_hints($question, $withclearwrong = false,
@@ -84,7 +81,7 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
      * @param object $question the data being passed to the form.
      * @return object $question the modified data.
      */
-    protected function data_preprocessing_answers($question) {
+    protected function data_preprocessing_answers($question, $withanswerfiles = false) {
         $question = parent::data_preprocessing_answers($question);
         if (empty($question->options->answers)) {
             return $question;

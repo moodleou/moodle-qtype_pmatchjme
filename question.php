@@ -69,11 +69,7 @@ class qtype_pmatchjme_question extends qtype_pmatch_question {
         return $messages;
     }
     protected function part_comparison($answercount, $responsecount, $part) {
-        $stringidentifierreplacements = array('=' => 'equals', '#' => 'hash');
-        if (isset($stringidentifierreplacements[$part])) {
-            $part = $stringidentifierreplacements[$part];
-        }
-        $humanreadablepart = get_string('smiles_'.$part, 'qtype_pmatchjme');
+        $humanreadablepart = $this->get_part_name($part);
         if ($answercount < $responsecount) {
             $message = get_string('smilestoomany', 'qtype_pmatchjme', $humanreadablepart);
             $error = true;
@@ -86,8 +82,25 @@ class qtype_pmatchjme_question extends qtype_pmatch_question {
         }
         return array($message, $error);
     }
+
     /**
-     *
+     * @param string $part symbol for part of a molecule.
+     * @return string the human-readable name for that part.
+     */
+    protected function get_part_name($part) {
+        switch ($part) {
+            case '=':
+                return get_string('smiles_doublebond', 'qtype_pmatchjme');
+            case '#':
+                return get_string('smiles_triplebond', 'qtype_pmatchjme');
+            case 'c':
+                return get_string('smiles_aromatic_c', 'qtype_pmatchjme');
+            default:
+                return get_string('smiles_' . strtolower($part), 'qtype_pmatchjme');
+        }
+    }
+
+    /**
      * Count parts of compound.
      */
     protected function count_compound_parts($compound) {

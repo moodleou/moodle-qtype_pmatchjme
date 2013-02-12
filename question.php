@@ -75,8 +75,8 @@ class qtype_pmatchjme_question extends qtype_pmatch_question {
         }
 
         if (!$anyerror) {
-            //count of smiles elements for student response and correct answer is the same
-            //clear all other messages and replace it with this one :
+            // Count of smiles elements for student response and correct answer is the same
+            // clear all other messages and replace it with this one.
             $messages = array(get_string('smilescorrectcount', 'qtype_pmatchjme'));
         }
         return $messages;

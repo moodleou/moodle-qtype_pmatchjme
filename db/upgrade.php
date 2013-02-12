@@ -17,10 +17,9 @@
 /**
  * Pmatch with jme editor question type upgrade code.
  *
- * @package    qtype
- * @subpackage pmatchjme
- * @copyright  2011 The Open University
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   qtype_pmatchjme
+ * @copyright 2011 The Open University
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
@@ -50,40 +49,40 @@ function xmldb_qtype_pmatchjme_upgrade($oldversion) {
 
     if ($oldversion < 2012062500) {
 
-        // Define key answerid_fk (foreign-unique) to be dropped form qtype_pmatchjme_answers
+        // Define key answerid_fk (foreign-unique) to be dropped form qtype_pmatchjme_answers.
         $table = new xmldb_table('qtype_pmatchjme_answers');
         $key = new xmldb_key('answerid_fk', XMLDB_KEY_FOREIGN_UNIQUE, array('answerid'), 'question_answers', array('id'));
 
-        // Launch drop key answerid_fk
+        // Launch drop key answerid_fk.
         $dbman->drop_key($table, $key);
 
-        // pmatchjme savepoint reached
+        // Next pmatchjme savepoint reached.
         upgrade_plugin_savepoint(true, 2012062500, 'qtype', 'pmatchjme');
     }
 
     if ($oldversion < 2012062501) {
 
-        // Changing precision of field answerid on table qtype_pmatchjme_answers to (10)
+        // Changing precision of field answerid on table qtype_pmatchjme_answers to (10).
         $table = new xmldb_table('qtype_pmatchjme_answers');
         $field = new xmldb_field('answerid', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '0', 'atomcount');
 
-        // Launch change of precision for field answerid
+        // Launch change of precision for field answerid.
         $dbman->change_field_precision($table, $field);
 
-        // pmatchjme savepoint reached
+        // Next pmatchjme savepoint reached.
         upgrade_plugin_savepoint(true, 2012062501, 'qtype', 'pmatchjme');
     }
 
     if ($oldversion < 2012062502) {
 
-        // Define key answerid_fk (foreign-unique) to be added to qtype_pmatchjme_answers
+        // Define key answerid_fk (foreign-unique) to be added to qtype_pmatchjme_answers.
         $table = new xmldb_table('qtype_pmatchjme_answers');
         $key = new xmldb_key('answerid_fk', XMLDB_KEY_FOREIGN_UNIQUE, array('answerid'), 'question_answers', array('id'));
 
-        // Launch add key answerid_fk
+        // Launch add key answerid_fk.
         $dbman->add_key($table, $key);
 
-        // pmatchjme savepoint reached
+        // Next pmatchjme savepoint reached.
         upgrade_plugin_savepoint(true, 2012062502, 'qtype', 'pmatchjme');
     }
 

@@ -17,10 +17,9 @@
 /**
  * Unit tests for the pmatchjme student response parsing and use of pmatch for SMILES strings.
  *
- * @package    qtype
- * @subpackage pmatchjme
- * @copyright  2012 The Open University
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   qtype_pmatchjme
+ * @copyright 2012 The Open University
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
@@ -32,12 +31,11 @@ require_once($CFG->dirroot . '/question/type/pmatch/pmatchlib.php');
 /**
  * Unit tests for the pmatchjme response parsing and use of pmatch for SMILES strings.
  *
- * @copyright  2012 The Open University
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @group      qtype_pmatchjme
+ * @copyright 2012 The Open University
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @group     qtype_pmatchjme
  */
 class pmatchjme_parse_string_test extends basic_testcase {
-
 
     protected function match($string, $expression, $options = null) {
         $string = new pmatch_parsed_string($string, $options);
@@ -59,9 +57,9 @@ class pmatchjme_parse_string_test extends basic_testcase {
         $this->assertTrue($this->match('CC(=O)O', 'match(CC\(=O\)O)'));
         $this->assertTrue($this->match('CC2COc1ccccc1N2C(=O)C(Cl)Cl',
                                         'match(CC2COc1ccccc1N2C\(=O\)C\(Cl\)Cl)'));
-        //change expression slightly
+        // Change expression slightly.
         $this->assertFalse($this->match('CC(=O)O', 'match(C\(=O\)O)'));
-        //change response slightly
+        // Change response slightly.
         $this->assertFalse($this->match('C2COc1ccccc1N2C(=O)C(Cl)Cl',
                                         'match(CC2COc1ccccc1N2C\(=O\)C\(Cl\)Cl)'));
     }

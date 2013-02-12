@@ -80,7 +80,7 @@ M.qtype_pmatchjme={
         // pass in its id as a parameter.
         javavars[javavars.length] = 'focushackid';
         javavars[javavars.length] = newApplet.id;
-        for (var i=0;i<javavars.length;i+=2) {
+        for (var i = 0; i < javavars.length; i += 2) {
             var param=document.createElement('param');
             param.name=javavars[i];
             param.value=javavars[i+1];

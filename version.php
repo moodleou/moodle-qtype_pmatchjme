@@ -24,13 +24,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2013050900;
-$plugin->requires  = 2013040500;
+$plugin->version   = 2013070100;
+$plugin->requires  = 2013051400;
 $plugin->cron      = 0;
 $plugin->component = 'qtype_pmatchjme';
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = '1.3 for Moodle 2.5+';
 
 $plugin->dependencies = array(
-    'qtype_pmatch' => 2012062300,
+    'qtype_pmatch' => 2013070100,
 );

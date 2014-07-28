@@ -53,7 +53,6 @@ $string['smiles_br'] = 'bromine atoms';
 $string['smiles_i'] = 'iodine atoms';
 $string['smiles_doublebond'] = 'double bonds';
 $string['smiles_triplebond'] = 'triple bonds';
-$string['smilesequal'] = 'You have the correct number of {$a}.';
 $string['smilestoofew'] = 'You have too few {$a}.';
 $string['smilestoomany'] = 'You have too many {$a}.';
 $string['smilescorrectcount'] = 'You have the correct molecular formula but not the correct structure.';

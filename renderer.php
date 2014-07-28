@@ -37,6 +37,7 @@ require_once($CFG->dirroot.'/question/type/pmatch/renderer.php');
 class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
     public function formulation_and_controls(question_attempt $qa,
                                              question_display_options $options) {
+        global $CFG;
 
         $question = $qa->get_question();
 
@@ -82,6 +83,10 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
         $this->require_js($toreplaceid, $qa, $options->readonly, $options->correctness,
                                                                 $question->allowsubscript, $question->allowsuperscript);
 
+        // Include JSME loader script as an html tag.
+        $jsmescript = $CFG->wwwroot.'/question/type/pmatchjme/jsme/jsme.nocache.js';
+        $result .= html_writer::tag('script', '', array('src' => $jsmescript));
+
         return $result;
     }
     protected function require_js($toreplaceid, question_attempt $qa, $readonly, $correctness, $nostereo, $autoez) {
@@ -115,6 +120,7 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
                                             (bool)$autoez),
                                       false,
                                       $jsmodule);
+
     }
 
     protected function hidden_fields(question_attempt $qa) {

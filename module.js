@@ -35,15 +35,17 @@ M.qtype_pmatchjme = {
                         288, 312, 'JME.class', javaparams, jmeoptions);
     },
     update_inputs : function() {
-        Y = this.Y;
+        var Y = this.Y,
+        name = this.applet_name,
+        topnode = this.topnode;
         if (!this.editor_displayed) {
-            this.show_error(Y, this.topnode);
+            this.show_error(Y, topnode);
         } else {
-            var inputdiv = this.Y.one(this.topnode);
+            var inputdiv = Y.one(topnode);
             inputdiv.ancestor('form').on('submit', function (){
-                Y.one(this.topnode + ' input.answer').set('value', this.find_java_applet(this.name).smiles());
-                Y.one(this.topnode + ' input.jme').set('value', this.find_java_applet(this.name).jmeFile());
-                Y.one(this.topnode + ' input.mol').set('value', this.find_java_applet(this.name).molFile())
+                Y.one(topnode + ' input.answer').set('value', this.find_java_applet(name).smiles());
+                Y.one(topnode + ' input.jme').set('value', this.find_java_applet(name).jmeFile());
+                Y.one(topnode + ' input.mol').set('value', this.find_java_applet(name).molFile())
             }, this);
         }
     },
@@ -56,7 +58,7 @@ M.qtype_pmatchjme = {
     /**
      * Gets around problem in ie6 using name
      */
-    find_java_applet : function () {
+    find_java_applet : function (appletname) {
         var applets = this.useJSME ? document.jsapplets : document.applets;
         for (appletno in applets) {
             if (applets[appletno].name == appletname) {

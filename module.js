@@ -4,10 +4,18 @@
 
 M.qtype_pmatchjme = {
     useJSME : true,
+    reload_limit : 10,
+    editor_displayed : false,
+    topnode : null,
+    applet_name : null,
+    Y : null,
     insert_jme_applet : function(Y, toreplaceid, appletid, name, topnode,
                                                                     appleturl, feedback, readonly, nostereo, autoez){
         var javaparams = ['jme', Y.one(topnode + ' input.jme').get('value')];
         var jmeoptions = new Array();
+        this.applet_name = name;
+        this.topnode = topnode;
+        this.Y = Y;
 
         if (nostereo) {
             jmeoptions[jmeoptions.length] = "nostereo";
@@ -23,8 +31,14 @@ M.qtype_pmatchjme = {
             javaparams[javaparams.length] = jmeoptions.join(',');
         }
 
-        if (!this.show_java(toreplaceid, appletid, name, appleturl,
-                                                            288, 312, 'JME.class', javaparams, jmeoptions)) {
+        this.show_java(toreplaceid, appletid, name, appleturl,
+                        288, 312, 'JME.class', javaparams, jmeoptions);
+    },
+    update_inputs : function() {
+        var Y = this.Y,
+        name = this.applet_name,
+        topnode = this.topnode;
+        if (!this.editor_displayed) {
             this.show_error(Y, topnode);
         } else {
             var inputdiv = Y.one(topnode);
@@ -70,6 +84,15 @@ M.qtype_pmatchjme = {
         if (!this.javainstalled && !this.useJSME) {
             return false;
         }
+
+        // Ensure the JSME code is loaded properly. IE 8 struggles.
+        if (typeof JSApplet !== 'object' && this.reload_limit) {
+            setTimeout(function(){M.qtype_pmatchjme.show_java(id, appletid, name,
+                            java, width, height, appletclass, javavars, jmeoptions)}, 100);
+            this.reload_limit--;
+            return false;
+        }
+
         var elementname = this.useJSME ? "div" : "applet";
         var newApplet = document.createElement(elementname);
         newApplet.setAttribute('code', appletclass);
@@ -134,6 +157,10 @@ M.qtype_pmatchjme = {
             this.doneie6focus = 1;
         }
 
-        return true;
+        this.editor_displayed = true;
+
+        this.update_inputs();
+
+        return this.editor_displayed;
     }
 }

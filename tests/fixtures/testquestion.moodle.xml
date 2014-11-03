@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<!-- question: 1  -->
+  <question type="pmatchjme">
+    <name>
+      <text>Imported JME question</text>
+    </name>
+    <questiontext format="html">
+      <text>Draw ethanol</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <usecase>1</usecase>
+    <allowsubscript>0</allowsubscript>
+    <allowsuperscript>1</allowsuperscript>
+    <forcelength>0</forcelength>
+    <applydictionarycheck>0</applydictionarycheck>
+    <extenddictionary></extenddictionary>
+    <converttospace></converttospace>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>match (CCO)
+</text>
+      <feedback format="html">
+        <text>Well done!</text>
+      </feedback>
+      <atomcount>0</atomcount>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>match (CO)
+</text>
+      <feedback format="html">
+        <text>Don't confuse meths with alcohol!</text>
+      </feedback>
+      <atomcount>1</atomcount>
+    </answer>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>*</text>
+      <feedback format="html">
+        <text>Sorry, no.</text>
+      </feedback>
+      <atomcount>1</atomcount>
+    </answer>
+    <hint format="html">
+      <text>Please try again.</text>
+    </hint>
+    <hint format="html">
+      <text>Haven't you drunk enough alcohol?</text>
+    </hint>
+  </question>
+
+</quiz>

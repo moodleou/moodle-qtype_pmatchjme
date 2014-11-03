@@ -55,7 +55,7 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
 
     protected function add_other_answer_fields($mform) {
         parent::add_other_answer_fields($mform);
-        $mform->addElement('advcheckbox', 'atomcount[other]', '', get_string('atomcount', 'qtype_pmatchjme'));
+        $mform->addElement('advcheckbox', 'atomcount_other', '', get_string('atomcount', 'qtype_pmatchjme'));
     }
 
     protected function data_preprocessing_hints($question, $withclearwrong = false,
@@ -93,19 +93,15 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
         }
         return $question;
     }
+
     protected function data_preprocessing_other_answer($question) {
-        if (!empty($question->options->answers)) {
-            foreach ($question->options->answers as $key => $answer) {
-                if ($answer->answer == '*') {
-                    if (!isset($question->atomcount)) {
-                        $question->atomcount = array();
-                    }
-                    $question->atomcount['other'] = $answer->atomcount;
-                }
+        if ($this->otheranswer) {
+            if (!isset($question->atomcount)) {
+                $question->atomcount = array();
             }
+            $question->atomcount_other = $this->otheranswer->atomcount;
         }
         $question = parent::data_preprocessing_other_answer($question);
-
         return $question;
     }
 

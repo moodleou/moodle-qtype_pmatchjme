@@ -79,7 +79,11 @@ class qtype_pmatchjme extends qtype_pmatch {
         global $DB;
         $extraanswerdata = new stdClass();
         $extraanswerdata->answerid = $answerid;
-        $extraanswerdata->atomcount = $question->atomcount[$key];
+        if ($key === 'other') {
+            $extraanswerdata->atomcount = $question->atomcount_other;
+        } else {
+            $extraanswerdata->atomcount = $question->atomcount[$key];
+        }
         $DB->insert_record('qtype_pmatchjme_answers', $extraanswerdata);
     }
     /**

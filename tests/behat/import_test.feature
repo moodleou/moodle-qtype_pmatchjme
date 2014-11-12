@@ -1,8 +1,8 @@
 @ou @ou_vle @qtype @qtype_pmatchjme
-Feature: Test importing pattern-match with JME questions
+Feature: Test importing pattern-match with molecular editor questions
   In order to easily reuse questions
   As an teacher
-  I need to be able to import pattern-matchwith JME questions.
+  I need to be able to import pattern-matchwith molecular editor questions.
 
   Background:
     Given the following "courses" exist:
@@ -28,4 +28,4 @@ Feature: Test importing pattern-match with JME questions
     And I should see "Importing 1 questions from file"
     And I should see "Draw ethanol"
     And I press "Continue"
-    And I should see "Imported JME question"
+    And I should see "Imported molecular editor question"

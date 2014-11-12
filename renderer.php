@@ -49,12 +49,12 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
 
         $toreplaceid = 'applet'.$qa->get_slot();
         $toreplace = html_writer::tag('span',
-                                      get_string('enablejavaandjavascript', 'qtype_pmatchjme'),
+                                      get_string('enablejavascript', 'qtype_pmatchjme'),
                                       array('id' => $toreplaceid));
 
         if ($placeholder) {
             $toreplace = html_writer::tag('span',
-                                      get_string('enablejavaandjavascript', 'qtype_pmatchjme'),
+                                      get_string('enablejavascript', 'qtype_pmatchjme'),
                                       array('class' => 'ablock'));
             $questiontext = substr_replace($questiontext,
                                             $toreplace,
@@ -96,7 +96,7 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
             'fullpath' => '/question/type/pmatchjme/module.js',
             'requires' => array(),
             'strings' => array(
-                array('enablejava', 'qtype_pmatchjme')
+                array('enablejavascript', 'qtype_pmatchjme')
             )
         );
         $topnode = 'div.que.pmatchjme#q'.$qa->get_slot();
@@ -108,7 +108,7 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
         }
         $name = 'JME'.$qa->get_slot();
         $appletid = 'jme'.$qa->get_slot();
-        $PAGE->requires->js_init_call('M.qtype_pmatchjme.insert_jme_applet',
+        $PAGE->requires->js_init_call('M.qtype_pmatchjme.insert_applet',
                                       array($toreplaceid,
                                             $name,
                                             $appletid,

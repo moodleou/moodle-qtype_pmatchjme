@@ -21,11 +21,11 @@ Feature: Test all the basic functionality of this question type
     And I navigate to "Question bank" node in "Course administration"
 
   @javascript
-  Scenario: Create, edit then preview a pattern match with JME question.
+  Scenario: Create, edit then preview a pattern match with molecular editor question.
 
     # Create a new question
-    When I add a "Pattern match with JME" question filling the form with:
-      | Question name      | My first JME question             |
+    When I add a "Pattern match with molecular editor" question filling the form with:
+      | Question name      | My first molecular editor question             |
       | Question text      | Draw ethanol                      |
       | Answer 1           | match (CCO)                       |
       | id_fraction_0      | 100%                              |
@@ -38,12 +38,12 @@ Feature: Test all the basic functionality of this question type
       | id_atomcount_other | 1                                 |
       | Hint 1             | Please try again.                 |
       | Hint 2             | Haven't you drunk enough alcohol? |
-    Then I should see "My first JME question"
+    Then I should see "My first molecular editor question"
 
     # Preview it.
-    When I click on "Preview" "link" in the "My first JME question" "table_row"
+    When I click on "Preview" "link" in the "My first molecular editor question" "table_row"
     And I switch to "questionpreview" window
-    Then I should see "Preview question: My first JME question"
+    Then I should see "Preview question: My first molecular editor question"
     And I switch to the main window
 
     # Backup the course and restore it.
@@ -55,12 +55,12 @@ Feature: Test all the basic functionality of this question type
       | Schema | Course name | Course 2 |
     Then I should see "Course 2"
     When I navigate to "Question bank" node in "Course administration"
-    Then I should see "My first JME question"
+    Then I should see "My first molecular editor question"
 
     # Edit the copy and verify the form field contents.
-    When I click on "Edit" "link" in the "My first JME question" "table_row"
+    When I click on "Edit" "link" in the "My first molecular editor question" "table_row"
     Then the following fields match these values:
-      | Question name      | My first JME question             |
+      | Question name      | My first molecular editor question             |
       | Question text      | Draw ethanol                      |
       | Answer 1           | match (CCO)                       |
       | id_fraction_0      | 100%                              |

@@ -16,7 +16,7 @@
 
 
 /**
- * OU pmatch with JME editor question question type language strings.
+ * OU pmatch with molecular editor question question type language strings.
  *
  * @package    qtype
  * @subpackage pmatchjme
@@ -25,20 +25,19 @@
  */
 
 $string['allowanothertry'] = 'Allow another try';
-$string['answeringoptions'] = 'Options for JME editor';
+$string['answeringoptions'] = 'Options for the molecular editor';
 $string['atomcount'] = 'Atom count feedback';
 $string['autoez'] = 'Automatic generation of SMILES with E,Z stereochemistry ("autoez")';
-$string['enablejava'] = 'Tried but failed to load JME editor. You have not got a JAVA runtime environment working in your browser. You will need one to attempt this question.';
-$string['enablejavaandjavascript'] = 'Loading JME editor.... If this message does not get replaced by the JME editor then you have not got javascript and a JAVA runtime environment working in your browser.';
+$string['enablejavascript'] = 'Loading the molecular editor.... If this message does not get replaced by the the molecular editor then you have not got javascript working in your browser.';
 $string['firstcorrectanswermustbestraightmatch'] = 'First correct answer must be a straight match of a SMILES string with no wild cards like match(SMILESEXPRESSION).';
 $string['firstcorrectanswermustnotrequireatomcountfeedback'] = 'First correct answer can not require atom count feedback';
 $string['nostereo'] = 'Stereochemistry not considered when creating SMILES ("nostereo")';
-$string['pluginname'] = 'Pattern match with JME editor';
-$string['pluginname_help'] = 'In response to a question (that may include a image) the respondent uses the JME editor to describe a molecular structure. There may be several possible correct answers, each with a different grade.';
+$string['pluginname'] = 'Pattern match with molecular editor';
+$string['pluginname_help'] = 'In response to a question (that may include a image) the respondent uses the molecular editor to describe a molecular structure. There may be several possible correct answers, each with a different grade.';
 $string['pluginname_link'] = 'question/type/pmatchjme';
-$string['pluginnameadding'] = 'Adding a pattern match with JME editor question';
-$string['pluginnameediting'] = 'Editing a pattern match with JME editor question';
-$string['pluginnamesummary'] = 'Allows drawing a molecule using the JME editor. The resonse is graded by comparing against various model answers, which are described using the OU\'s pattern match syntax.';
+$string['pluginnameadding'] = 'Adding a pattern match with molecular editor question';
+$string['pluginnameediting'] = 'Editing a pattern match with molecular editor question';
+$string['pluginnamesummary'] = 'Allows drawing a molecule using the molecular editor. The response is graded by comparing against various model answers, which are described using the OU\'s pattern match syntax.';
 $string['smilesequal'] = 'You have the correct number of {$a}.';
 $string['smilestoofew'] = 'You have too few {$a}.';
 $string['smilestoomany'] = 'You have too many {$a}.';

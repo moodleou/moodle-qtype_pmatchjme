@@ -9,7 +9,7 @@ M.qtype_pmatchjme = {
     topnode : null,
     applet_name : null,
     Y : null,
-    insert_jme_applet : function(Y, toreplaceid, appletid, name, topnode,
+    insert_applet : function(Y, toreplaceid, appletid, name, topnode,
                                                                     appleturl, feedback, readonly, nostereo, autoez){
         var javaparams = ['jme', Y.one(topnode + ' input.jme').get('value')];
         var jmeoptions = new Array();
@@ -43,22 +43,22 @@ M.qtype_pmatchjme = {
         } else {
             var inputdiv = Y.one(topnode);
             inputdiv.ancestor('form').on('submit', function (){
-                Y.one(topnode + ' input.answer').set('value', this.find_java_applet(name).smiles());
-                Y.one(topnode + ' input.jme').set('value', this.find_java_applet(name).jmeFile());
-                Y.one(topnode + ' input.mol').set('value', this.find_java_applet(name).molFile())
+                Y.one(topnode + ' input.answer').set('value', this.find_applet(name).smiles());
+                Y.one(topnode + ' input.jme').set('value', this.find_applet(name).jmeFile());
+                Y.one(topnode + ' input.mol').set('value', this.find_applet(name).molFile())
             }, this);
         }
     },
     show_error : function (Y, topnode) {
-        var errormessage = '<span class ="javawarning">' +
-            M.util.get_string('enablejava', 'qtype_pmatchjme') +
+        var errormessage = '<span class ="javascriptwarning">' +
+            M.util.get_string('enablejavascript', 'qtype_pmatchjme') +
             '</span>';
         Y.one(topnode + ' .ablock').insert(errormessage, 1);
     },
     /**
      * Gets around problem in ie6 using name
      */
-    find_java_applet : function (appletname) {
+    find_applet : function (appletname) {
         var applets = this.useJSME ? document.jsapplets : document.applets;
         for (appletno in applets) {
             if (applets[appletno].name == appletname) {

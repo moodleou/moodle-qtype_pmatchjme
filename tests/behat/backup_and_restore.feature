@@ -20,6 +20,7 @@ Feature: Test duplicating a quiz containing a pattern match with JME question
     And quiz "Test quiz" contains the following questions:
       | Draw benzene | 1 |
     And I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
 
   @javascript

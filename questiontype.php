@@ -17,8 +17,7 @@
 /**
  * Question type class for the pmatch with JME editor question type.
  *
- * @package    qtype
- * @subpackage pmatch
+ * @package    qtype_pmatchjme
  * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

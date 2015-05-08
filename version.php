@@ -34,3 +34,5 @@ $plugin->release   = '1.5 for Moodle 2.6+';
 $plugin->dependencies = array(
     'qtype_pmatch' => 2014111200,
 );
+
+$plugin->outestssufficient = true;

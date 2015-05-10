@@ -107,7 +107,7 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
 
     protected function straight_smiles_string_match($string) {
         $ciw = '('.PMATCH_CHARACTER .'|'. '\\\\'.PMATCH_SPECIAL_CHARACTER.')';
-        return (1 == preg_match("!match\({$ciw}+\)!i", $string));
+        return (1 == preg_match("~match\({$ciw}+\)~i", $string));
     }
 
     public function validation($data, $files) {

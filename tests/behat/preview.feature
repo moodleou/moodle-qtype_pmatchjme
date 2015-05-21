@@ -35,3 +35,4 @@ Feature: Preview a drag-drop into text question
     And I press "Submit and finish"
     Then the state of "Please draw a benzene molecule." question is shown as "Correct"
     And I should see "Mark 1.00 out of 1.00"
+    And I switch to the main window

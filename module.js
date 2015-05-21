@@ -3,12 +3,13 @@
 
 
 M.qtype_pmatchjme = {
-    useJSME : true,
     reload_limit : 10,
     editor_displayed : false,
     topnode : null,
     applet_name : null,
     Y : null,
+    javainstalled : -99,
+
     insert_applet : function(Y, toreplaceid, appletid, name, topnode,
                                                                     appleturl, feedback, readonly, nostereo, autoez){
         var javaparams = ['jme', Y.one(topnode + ' input.jme').get('value')];
@@ -34,6 +35,7 @@ M.qtype_pmatchjme = {
         this.show_java(toreplaceid, appletid, name, appleturl,
                         288, 312, 'JME.class', javaparams, jmeoptions);
     },
+
     update_inputs : function() {
         var Y = this.Y,
         name = this.applet_name,
@@ -49,17 +51,19 @@ M.qtype_pmatchjme = {
             }, this);
         }
     },
+
     show_error : function (Y, topnode) {
         var errormessage = '<span class ="javascriptwarning">' +
             M.util.get_string('enablejavascript', 'qtype_pmatchjme') +
             '</span>';
         Y.one(topnode + ' .ablock').insert(errormessage, 1);
     },
+
     /**
      * Gets around problem in ie6 using name
      */
     find_applet : function (appletname) {
-        var applets = this.useJSME ? document.jsapplets : document.applets;
+        var applets = document.jsapplets;
         for (appletno in applets) {
             if (applets[appletno].name == appletname) {
                 return applets[appletno];
@@ -68,10 +72,6 @@ M.qtype_pmatchjme = {
         return null;
     },
 
-    nextappletid : 1,
-    javainstalled : -99,
-    doneie6focus : 0,
-    doneie6focusapplets : 0,
     // Note: This method is also called from mod/audiorecorder.
     show_java : function (id, appletid, name, java, width, height, appletclass, javavars, jmeoptions) {
 
@@ -81,9 +81,6 @@ M.qtype_pmatchjme = {
         }
         var warningspan = document.getElementById(id);
         warningspan.innerHTML = '';
-        if (!this.javainstalled && !this.useJSME) {
-            return false;
-        }
 
         // Ensure the JSME code is loaded properly. IE 8 struggles.
         if (typeof JSApplet !== 'object' && this.reload_limit) {
@@ -93,7 +90,7 @@ M.qtype_pmatchjme = {
             return false;
         }
 
-        var elementname = this.useJSME ? "div" : "applet";
+        var elementname = "div";
         var newApplet = document.createElement(elementname);
         newApplet.setAttribute('code', appletclass);
         newApplet.setAttribute('archive', java);
@@ -115,52 +112,25 @@ M.qtype_pmatchjme = {
         }
         warningspan.appendChild(newApplet);
 
-        if (this.useJSME) {
-            //Instantiate a new JSME:
-            //arguments: HTML id, width, height (must be string not number!).
-            jsmeApplet = new JSApplet.JSME(appletid, (width + 80) + 'px', height + 'px', {
-                // Optional parameters.
-                "options" : jmeoptions.join(',')
-            });
-            jsmeApplet.name = name;
-            // If molecule data is supplied display it.
-            if (javavars[1]) {
-                jsmeApplet.readMolecule(javavars[1]);
-            }
-            // Create document.jsapplets array if it doesn't exist.
-            if (!document.jsapplets) {
-                document.jsapplets = [];
-            }
-            document.jsapplets[document.jsapplets.length] = jsmeApplet;
+        // Instantiate a new JSME:
+        // Arguments: HTML id, width, height (must be string not number!).
+        jsmeApplet = new JSApplet.JSME(appletid, (width + 80) + 'px', height + 'px', {
+            // Optional parameters.
+            "options" : jmeoptions.join(',')
+        });
+        jsmeApplet.name = name;
+        // If molecule data is supplied display it.
+        if (javavars[1]) {
+            jsmeApplet.readMolecule(javavars[1]);
         }
-
-        if(document.body.className.indexOf('ie6') != -1 && !this.doneie6focus) {
-            var fixFocus = function() {
-                if (document.activeElement && document.activeElement.nodeName.toLowerCase() == elementname) {
-                    setTimeout(fixFocus, 100);
-                    this.doneie6focus = 1;
-                    this.doneie6focusapplets ++;
-                    window.focus();
-                } else {
-                    this.doneie6focus++;
-                    if(this.doneie6focus == 2 && this.doneie6focusapplets > 0) {
-                        // Focus one extra time after applet gets it.
-                        window.focus();
-                    }
-                    if(this.doneie6focus < 50) {
-                        setTimeout(fixFocus, 100);
-                    }
-                }
-            };
-            window.arghApplets = 0;
-            setTimeout(fixFocus, 100);
-            this.doneie6focus = 1;
+        // Create document.jsapplets array if it doesn't exist.
+        if (!document.jsapplets) {
+            document.jsapplets = [];
         }
+        document.jsapplets[document.jsapplets.length] = jsmeApplet;
 
         this.editor_displayed = true;
-
         this.update_inputs();
-
         return this.editor_displayed;
     }
 }

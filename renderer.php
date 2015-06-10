@@ -108,19 +108,10 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
         }
         $name = 'JME'.$qa->get_slot();
         $appletid = 'jme'.$qa->get_slot();
-        $PAGE->requires->js_init_call('M.qtype_pmatchjme.insert_applet',
-                                      array($toreplaceid,
-                                            $name,
-                                            $appletid,
-                                            $topnode,
-                                            $appleturl->out(),
-                                            $feedbackimage,
-                                            $readonly,
-                                            (bool)$nostereo,
-                                            (bool)$autoez),
-                                      false,
-                                      $jsmodule);
-
+        $PAGE->requires->yui_module('moodle-qtype_pmatchjme-jsme',
+                'M.qtype_pmatchjme.jsme.insert_applet',
+                 array($toreplaceid, $name, $appletid, $topnode, $appleturl->out(),
+                         $feedbackimage, $readonly, (bool) $nostereo, (bool) $autoez));
     }
 
     protected function hidden_fields(question_attempt $qa) {
@@ -200,6 +191,4 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
 
         return $feedback;
     }
-
-
 }

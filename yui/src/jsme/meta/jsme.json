@@ -1,0 +1,8 @@
+{
+  "moodle-qtype_pmatchjme-jsme": {
+    "requires": [
+        "node",
+        "event"
+    ]
+  }
+}

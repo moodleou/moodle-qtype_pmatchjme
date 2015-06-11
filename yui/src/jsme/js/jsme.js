@@ -23,126 +23,56 @@
 
 M.qtype_pmatchjme = M.qtype_pmatchjme || {};
 M.qtype_pmatchjme.jsme = {
-    reload_limit: 10,
-    editor_displayed: false,
-    topnode: null,
-    applet_name: null,
+    MAX_LOADING_WAITS: 10,
+    jsapplets: [],
 
-    insert_applet: function(toreplaceid, appletid, name, topnode, appleturl,
-            feedback, readonly, nostereo, autoez) {
-        var javaparams = ['jme', Y.one(topnode + ' input.jme').get('value')];
+    insert_applet: function(containerid, topselector, feedback, readonly, nostereo, autoez) {
         var jmeoptions = [];
-        this.applet_name = name;
-        this.topnode = topnode;
-
         if (nostereo) {
-            jmeoptions[jmeoptions.length] = "nostereo";
+            jmeoptions.push("nostereo");
         }
         if (autoez) {
-            jmeoptions[jmeoptions.length] = "autoez";
+            jmeoptions.push("autoez");
         }
         if (readonly) {
-            jmeoptions[jmeoptions.length] = "depict";
-        }
-        if (jmeoptions.length !== 0) {
-            javaparams[javaparams.length] = "options";
-            javaparams[javaparams.length] = jmeoptions.join(',');
+            jmeoptions.push("depict");
         }
 
-        this.show_java(toreplaceid, appletid, name, appleturl,
-                    288, 312, 'JME.class', javaparams, jmeoptions);
+        this.show_jsme(topselector, containerid, jmeoptions, this.MAX_LOADING_WAITS);
     },
 
-    update_inputs: function() {
-        var name = this.applet_name,
-        topnode = this.topnode;
-        if (!this.editor_displayed) {
-            this.show_error(topnode);
-        } else {
-            var inputdiv = Y.one(topnode);
-            inputdiv.ancestor('form').on('submit', function (){
-                Y.one(topnode + ' input.answer').set('value', this.find_applet(name).smiles());
-                Y.one(topnode + ' input.jme').set('value', this.find_applet(name).jmeFile());
-                Y.one(topnode + ' input.mol').set('value', this.find_applet(name).molFile());
-            }, this);
-        }
-    },
-
-    show_error: function (topnode) {
-        var errormessage = '<span class ="javascriptwarning">' +
-                M.util.get_string('enablejavascript', 'qtype_pmatchjme') +
-                '</span>';
-        Y.one(topnode + ' .ablock').insert(errormessage, 1);
-    },
-
-    /**
-     * Gets around problem in ie6 using name
-     */
-    find_applet: function (appletname) {
-        var applets = document.jsapplets;
-        for (var appletno = 0; i < applets.length; appletno++) {
-            if (applets[appletno].name === appletname) {
-                return applets[appletno];
-            }
-        }
-        return null;
-    },
-
-    // Note: This method is also called from mod/audiorecorder.
-    show_java: function (id, appletid, name, java, width, height, appletclass, javavars, jmeoptions) {
-
-        var warningspan = document.getElementById(id);
-        warningspan.innerHTML = '';
+    show_jsme: function (topselector, containerid, jmeoptions, remainingloadingwaits) {
+        var topnode = Y.one(topselector);
 
         // Ensure the JSME code is loaded properly. IE 8 struggles.
-        if (typeof JSApplet !== 'object' && this.reload_limit) {
+        if (typeof JSApplet !== 'object' && remainingloadingwaits > 0) {
             setTimeout(function() {
-                M.qtype_pmatchjme.jsme.show_java(id, appletid, name,
-                        java, width, height, appletclass, javavars, jmeoptions); }, 100);
-            this.reload_limit--;
-            return false;
+                        M.qtype_pmatchjme.jsme.show_jsme(topselector, containerid,
+                                jmeoptions, remainingloadingwaits - 1);
+                    }, 100);
+            return;
         }
 
-        var newApplet = document.createElement("div");
-        newApplet.setAttribute('code', appletclass);
-        newApplet.setAttribute('archive', java);
-        newApplet.setAttribute('name', name);
-        newApplet.setAttribute('width', width);
-        newApplet.setAttribute('height', height);
-        newApplet.setAttribute('tabIndex', -1);
-        newApplet.setAttribute('mayScript', true);
-        newApplet.setAttribute('id', appletid);
-        // In case applet supports the focushack system, we
-        // pass in its id as a parameter.
-        javavars[javavars.length] = 'focushackid';
-        javavars[javavars.length] = newApplet.id;
-        for (var i = 0; i < javavars.length; i += 2) {
-            var param = document.createElement('param');
-            param.name = javavars[i];
-            param.value = javavars[i + 1];
-            newApplet.appendChild(param);
-        }
-        warningspan.appendChild(newApplet);
+        // Hide the JS noot working message.
+        Y.one('#' + containerid).setHTML('');
+        Y.one('#' + containerid).removeClass('qtype_pmatchjme-applet-warning');
 
-        // Instantiate a new JSME:
-        // Arguments: HTML id, width, height (must be string not number!).
-        jsmeApplet = new JSApplet.JSME(appletid, (width + 80) + 'px', height + 'px', {
-            // Optional parameters.
-            "options" : jmeoptions.join(',')
-        });
-        jsmeApplet.name = name;
+        // Instantiate a new JSME.
+        jsmeApplet = new JSApplet.JSME(containerid, '368px', '312px', {"options": jmeoptions.join(',')});
+        jsmeApplet.name = containerid;
+        this.jsapplets[containerid] = jsmeApplet;
+
         // If molecule data is supplied display it.
-        if (javavars[1]) {
-            jsmeApplet.readMolecule(javavars[1]);
+        var jme = topnode.one('input.jme').get('value');
+        if (jme) {
+            jsmeApplet.readMolecule(jme);
         }
-        // Create document.jsapplets array if it doesn't exist.
-        if (!document.jsapplets) {
-            document.jsapplets = [];
-        }
-        document.jsapplets[document.jsapplets.length] = jsmeApplet;
 
-        this.editor_displayed = true;
-        this.update_inputs();
-        return this.editor_displayed;
+        // Add event handler to save the vales on form submit.
+        topnode.ancestor('form').on('submit', function (){
+            topnode.one('input.answer').set('value', this.jsapplets[containerid].smiles());
+            topnode.one('input.jme').set('value', this.jsapplets[containerid].jmeFile());
+            topnode.one('input.mol').set('value', this.jsapplets[containerid].molFile());
+        }, this);
     }
 };

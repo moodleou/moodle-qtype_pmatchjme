@@ -15,6 +15,15 @@
 .que.pmatchjme span.answerlabel {
     vertical-align: top;
 }
+
+.qtype_pmatchjme-applet-warning {
+    width: 348px;
+    height: 302px;
+    background: #fff;
+    color: #ccc;
+    padding: 5px;
+}
+
 /* Editing form. Style repeated elements*/
 /* Top */
 body#page-question-type-pmatchjme div[id^=fitem_id_][id*=answer_],

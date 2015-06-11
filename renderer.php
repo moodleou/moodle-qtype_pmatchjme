@@ -26,7 +26,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot.'/question/type/pmatch/renderer.php');
+require_once($CFG->dirroot . '/question/type/pmatch/renderer.php');
 
 /**
  * Generates the output for pmatchjme questions.
@@ -35,9 +35,7 @@ require_once($CFG->dirroot.'/question/type/pmatch/renderer.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
-    public function formulation_and_controls(question_attempt $qa,
-                                             question_display_options $options) {
-        global $CFG;
+    public function formulation_and_controls(question_attempt $qa, question_display_options $options) {
 
         $question = $qa->get_question();
 
@@ -47,71 +45,59 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
             $placeholder = $matches[0];
         }
 
-        $toreplaceid = 'applet'.$qa->get_slot();
-        $toreplace = html_writer::tag('span',
-                                      get_string('enablejavascript', 'qtype_pmatchjme'),
-                                      array('id' => $toreplaceid));
+        $containerid = 'qtype_pmatchjme-applet' . $qa->get_slot();
+        $jsmecontainer = html_writer::tag('div',
+                get_string('enablejavascript', 'qtype_pmatchjme'),
+                array('id' => $containerid, 'class' => 'qtype_pmatchjme-applet-warning'));
 
         if ($placeholder) {
-            $toreplace = html_writer::tag('span',
-                                      get_string('enablejavascript', 'qtype_pmatchjme'),
-                                      array('class' => 'ablock'));
-            $questiontext = substr_replace($questiontext,
-                                            $toreplace,
-                                            strpos($questiontext, $placeholder),
-                                            strlen($placeholder));
+            $questiontext = substr_replace($questiontext, $jsmecontainer,
+                    strpos($questiontext, $placeholder), strlen($placeholder));
         }
 
         $result = html_writer::tag('div', $questiontext, array('class' => 'qtext'));
 
         if (!$placeholder) {
             $answerlabel = html_writer::tag('span', get_string('answer', 'qtype_pmatch', ''),
-                                            array('class' => 'answerlabel'));
-            $result .= html_writer::tag('div', $answerlabel.$toreplace, array('class' => 'ablock'));
+                    array('class' => 'answerlabel'));
+            $result .= html_writer::tag('div', $answerlabel . $jsmecontainer, array('class' => 'ablock'));
         }
 
         if ($qa->get_state() == question_state::$invalid) {
             $lastresponse = $this->get_last_response($qa);
             $result .= html_writer::nonempty_tag('div',
-                                                $question->get_validation_error($lastresponse),
-                                                array('class' => 'validationerror'));
+                    $question->get_validation_error($lastresponse),
+                    array('class' => 'validationerror'));
         }
-        $result .= html_writer::tag('div',
-                                    $this->hidden_fields($qa),
-                                    array('class' => 'inputcontrol'));
 
-        $this->require_js($toreplaceid, $qa, $options->readonly, $options->correctness,
-                                                                $question->allowsubscript, $question->allowsuperscript);
+        $result .= html_writer::tag('div', $this->hidden_fields($qa), array('class' => 'inputcontrol'));
 
-        // Include JSME loader script as an html tag.
-        $jsmescript = $CFG->wwwroot.'/question/type/pmatchjme/jsme/jsme.nocache.js';
-        $result .= html_writer::tag('script', '', array('src' => $jsmescript));
+        $result .= $this->require_js($containerid, $qa, $options->readonly, $options->correctness,
+                $question->allowsubscript, $question->allowsuperscript);
 
         return $result;
     }
-    protected function require_js($toreplaceid, question_attempt $qa, $readonly, $correctness, $nostereo, $autoez) {
-        global $PAGE;
-        $jsmodule = array(
-            'name'     => 'qtype_pmatchjme',
-            'fullpath' => '/question/type/pmatchjme/module.js',
-            'requires' => array(),
-            'strings' => array(
-                array('enablejavascript', 'qtype_pmatchjme')
-            )
-        );
-        $topnode = 'div.que.pmatchjme#q'.$qa->get_slot();
-        $appleturl = new moodle_url('/question/type/pmatchjme/jme/JME.jar');
+    protected function require_js($containerid, question_attempt $qa, $readonly, $correctness, $nostereo, $autoez) {
+        global $CFG;
+
+        $topnode = 'div.que.pmatchjme#q' . $qa->get_slot();
         if ($correctness) {
             $feedbackimage = $this->feedback_image($this->fraction_for_last_response($qa));
         } else {
             $feedbackimage = '';
         }
-        $name = 'JME'.$qa->get_slot();
-        $appletid = 'jme'.$qa->get_slot();
-        $PAGE->requires->yui_module('moodle-qtype_pmatchjme-jsme',
+        $this->page->requires->yui_module('moodle-qtype_pmatchjme-jsme',
                 'M.qtype_pmatchjme.jsme.insert_applet',
-                 array($toreplaceid, $name, $appletid, $topnode, $appleturl->out(),
-                         $feedbackimage, $readonly, (bool) $nostereo, (bool) $autoez));
+                 array($containerid, $topnode, $feedbackimage, $readonly,
+                         (bool) $nostereo, (bool) $autoez));
+
+        // Include JSME loader script as an html tag.
+        if ($this->page->requires->should_create_one_time_item_now('qtype_pmatchjme-jsme')) {
+            return html_writer::tag('script', '',
+                    array('src' => new moodle_url('/question/type/pmatchjme/jsme/jsme.nocache.js')));
+        } else {
+            return '';
+        }
     }
 
     protected function hidden_fields(question_attempt $qa) {

@@ -1,7 +1,7 @@
 @ou @ou_vle @qtype @qtype_pmatchjme
-Feature: Preview a drag-drop into text question
+Feature: Preview a pattern match with JME question
   As a teacher
-  In order to check my drag-drop into text questions will work for students
+  In order to check my pattern match with JME questions will work for students
   I need to preview them
 
   Background:
@@ -29,9 +29,9 @@ Feature: Preview a drag-drop into text question
     When I click on "Preview" "link" in the "Draw benzene" "table_row"
     And I switch to "questionpreview" window
     # Select Benzene ring tool.
-    And I click on "//div[@name = 'jme1']/div/div[@class = 'jsa-resetDiv']/div[@class = 'jsa-resetDiv'][3]/*[name() = 'svg']/*[name() = 'rect' and @x = '200' and @y = '25' and @width = '24']" "xpath_element"
+    And I click on "//div[@id = 'qtype_pmatchjme-applet1']/div/div[@class = 'jsa-resetDiv']/div[@class = 'jsa-resetDiv'][3]/*[name() = 'svg']/*[name() = 'g']/*[name() = 'rect' and @x = '8000' and @y = '1000' and @width = '960']" "xpath_element"
     # Click in the drawing area.
-    And I click on "//div[@name = 'jme1']/div/div[@class = 'jsa-resetDiv']/div[@class = 'jsa-resetDiv'][2]" "xpath_element"
+    And I click on "//div[@id = 'qtype_pmatchjme-applet1']/div/div[@class = 'jsa-resetDiv']/div[@class = 'jsa-resetDiv'][2]" "xpath_element"
     And I press "Submit and finish"
     Then the state of "Please draw a benzene molecule." question is shown as "Correct"
     And I should see "Mark 1.00 out of 1.00"

@@ -1,0 +1,15 @@
+This explains how to update the version of JSME embedded in this plugin
+
+1. Download the zip file from http://peter-ertl.com/jsme/
+
+2. Unzip it, and find the folder called JSME_yyyy-mm-dd/jsme.
+
+3. Inside this plugin, delete the jsme folder.
+
+4. Replace it with the folder you just found at Step 2. above.
+
+5. Run all the PHPunit and Behat tests.
+
+6. Test manually.
+
+7. Commit and push for testing. 

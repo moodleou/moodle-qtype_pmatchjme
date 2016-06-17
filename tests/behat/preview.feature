@@ -24,7 +24,7 @@ Feature: Preview a pattern match with JME question
     And I follow "Course 1"
     And I navigate to "Question bank" node in "Course administration"
 
-  @javascript
+  @javascript @_switch_window
   Scenario: Preview a question and get it right.
     When I click on "Preview" "link" in the "Draw benzene" "table_row"
     And I switch to "questionpreview" window

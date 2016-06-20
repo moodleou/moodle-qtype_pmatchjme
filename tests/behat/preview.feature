@@ -1,4 +1,4 @@
-@ou @ou_vle @qtype @qtype_pmatchjme
+@ou @ou_vle @qtype @qtype_pmatchjme @_switch_window @javascript
 Feature: Preview a pattern match with JME question
   As a teacher
   In order to check my pattern match with JME questions will work for students
@@ -24,7 +24,6 @@ Feature: Preview a pattern match with JME question
     And I follow "Course 1"
     And I navigate to "Question bank" node in "Course administration"
 
-  @javascript @_switch_window
   Scenario: Preview a question and get it right.
     When I click on "Preview" "link" in the "Draw benzene" "table_row"
     And I switch to "questionpreview" window

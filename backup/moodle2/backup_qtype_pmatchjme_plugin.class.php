@@ -68,9 +68,9 @@ class backup_qtype_pmatchjme_plugin extends backup_qtype_plugin {
 
         // Set source to populate the data.
         $pmatchoptions->set_source_table('qtype_pmatch',
-                                                    array('questionid' => backup::VAR_PARENTID));
+                array('questionid' => backup::VAR_PARENTID));
         $synonym->set_source_table('qtype_pmatch_synonyms',
-                                                    array('questionid' => backup::VAR_PARENTID));
+                array('questionid' => backup::VAR_PARENTID), 'id ASC');
 
         // Don't need to annotate ids nor files.
 

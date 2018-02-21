@@ -77,20 +77,16 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
 
         return $result;
     }
-    protected function require_js($containerid, question_attempt $qa, $readonly, $correctness, $nostereo, $autoez) {
-        global $CFG;
 
+    protected function require_js($containerid, question_attempt $qa, $readonly, $correctness, $nostereo, $autoez) {
         $topnode = 'div.que.pmatchjme#q' . $qa->get_slot();
         if ($correctness) {
             $feedbackimage = $this->feedback_image($this->fraction_for_last_response($qa));
         } else {
             $feedbackimage = '';
         }
-        $this->page->requires->yui_module('moodle-qtype_pmatchjme-jsme',
-                'M.qtype_pmatchjme.jsme.insert_applet',
-                 array($containerid, $topnode, $feedbackimage, $readonly,
-                         (bool) $nostereo, (bool) $autoez));
-
+        $this->page->requires->js_call_amd('qtype_pmatchjme/jsme', 'insert_applet',
+                array($containerid, $topnode, $feedbackimage, $readonly, (bool) $nostereo, (bool) $autoez));
         // Include JSME loader script as an html tag.
         if ($this->page->requires->should_create_one_time_item_now('qtype_pmatchjme-jsme')) {
             return html_writer::tag('script', '',

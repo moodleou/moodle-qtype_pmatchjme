@@ -28,7 +28,7 @@ Feature: Preview a pattern match with JME question
     When I click on "Preview" "link" in the "Draw benzene" "table_row"
     And I switch to "questionpreview" window
     # Select Benzene ring tool.
-    And I click on "//div[@id = 'qtype_pmatchjme-applet1']/div/div[@class = 'jsa-resetDiv']/div[@class = 'jsa-resetDiv'][3]/*[name() = 'svg']/*[name() = 'g']/*[name() = 'rect' and @x = '8000' and @y = '1000' and @width = '960']" "xpath_element"
+    And I click on "//div[@id = 'qtype_pmatchjme-applet1']/div/div[@class = 'jsa-resetDiv']/div[@class = 'jsa-resetDiv'][3]/*[name() = 'svg']/*[name() = 'g']/*[name() = 'rect' and @x = '5790' and @y = '750' and @width = '660']" "xpath_element"
     # Click in the drawing area.
     And I click on "//div[@id = 'qtype_pmatchjme-applet1']/div/div[@class = 'jsa-resetDiv']/div[@class = 'jsa-resetDiv'][2]" "xpath_element"
     And I press "Submit and finish"

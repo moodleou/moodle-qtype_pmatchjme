@@ -30,5 +30,5 @@ Moodle install
     echo '/question/type/pmatchjme/' >> .git/info/exclude
     git clone git://github.com/moodleou/moodle-qtype_pmatch.git question/type/pmatch
     echo /question/type/pmatch/ >> .git/info/exclude
-    git clone git://github.com/moodleou/moodle-editor_supsub.git lib/editor/supsub
-    echo /lib/editor/supsub/ >> .git/info/exclude
+    git clone git://github.com/moodleou/moodle-editor_ousupsub.git lib/editor/ousupsub
+    echo /lib/editor/ousupsub/ >> .git/info/exclude

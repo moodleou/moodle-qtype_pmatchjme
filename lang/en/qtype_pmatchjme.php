@@ -56,3 +56,4 @@ $string['smilestoofew'] = 'You have too few {$a}.';
 $string['smilestoomany'] = 'You have too many {$a}.';
 $string['smilescorrectcount'] = 'You have the correct molecular formula but not the correct structure.';
 
+$string['privacy:metadata'] = 'The Pattern match with molecular editor plugin does not store any personal data.';

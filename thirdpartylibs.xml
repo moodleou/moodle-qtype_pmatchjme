@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<libraries>
+  <library>
+      <location>jsme</location>
+      <name>JSME Molecule Editor</name>
+      <license>BSD</license>
+      <version>2.4.9+</version>
+  </library>
+</libraries>

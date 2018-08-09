@@ -65,7 +65,7 @@ class qtype_pmatchjme_question extends qtype_pmatch_question {
         $anyerror = (count($answerparts) != count($responseparts));
         $i = 0;
         foreach ($responseparts as $part => $responsecount) {
-            $answercount = isset($answerparts[$part])?$answerparts[$part]:0;
+            $answercount = isset($answerparts[$part]) ? $answerparts[$part] : 0;
             list($messages[$i], $errorhere) = $this->part_comparison($answercount,
                                                                        $responsecount,
                                                                        $part);

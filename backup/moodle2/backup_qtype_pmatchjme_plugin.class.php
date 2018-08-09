@@ -95,7 +95,8 @@ class backup_qtype_pmatchjme_plugin extends backup_qtype_plugin {
         // Set the sources.
         $answer->set_source_sql('
                 SELECT pa.*
-                FROM {question_answers} AS ans, {qtype_pmatchjme_answers} AS pa
+                FROM {question_answers} ans,
+                     {qtype_pmatchjme_answers} pa
                 WHERE ans.question = :question AND ans.id = pa.answerid
                 ORDER BY id',
                 array('question' => backup::VAR_PARENTID));

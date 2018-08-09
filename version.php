@@ -24,15 +24,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015061100;
-$plugin->requires  = 2013101800;
-$plugin->cron      = 0;
+$plugin->version   = 2018080900;
+$plugin->requires  = 2017111300;
 $plugin->component = 'qtype_pmatchjme';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '1.7 for Moodle 2.6+';
+$plugin->release   = '1.8 for Moodle 3.4+';
 
 $plugin->dependencies = array(
-    'qtype_pmatch' => 2015051000,
+    'qtype_pmatch' => 2018080800,
 );
 
 $plugin->outestssufficient = true;

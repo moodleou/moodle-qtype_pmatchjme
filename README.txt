@@ -8,7 +8,7 @@ it against vaious model answers that are expressed using a sophisticated patten
 matching algorithm. See http://docs.moodle.org/dev/The_OU_PMatch_algorithm
 
 This question type is has been available since Moodle 2.1+. This version is
-compatible with Moodle 2.5+.
+compatible with Moodle 3.4+.
 
 This question type requires that the pmatch question type
 https://github.com/moodleou/moodle-qtype_pmatch/
@@ -18,7 +18,7 @@ http://www.molinspiration.com/jme/getjme.html explains how to get a copy.
 
 
 This question type should be installed like any other Moodle add-on. See
-http://docs.moodle.org/25/en/Installing_add-ons.
+http://docs.moodle.org/en/Installing_add-ons.
 
 After you have installed the code, you need to manually copy JME.jar (see above)
 to question/type/pmatchjme/jme/ folder.

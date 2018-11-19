@@ -1,6 +1,11 @@
 # Change log for the Pattern match with JME question type
 
 
+## Changes in 1.9
+
+* Update Behat tests to work in Moodle 3.6.
+
+
 ## Changes in 1.8
 
 * Privacy API implementation.

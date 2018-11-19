@@ -22,7 +22,7 @@ Feature: Preview a pattern match with JME question
       | Test questions   | pmatchjme | Draw benzene | benzene  |
     Given I log in as "teacher1"
     And I am on "Course 1" course homepage
-    And I navigate to "Question bank" node in "Course administration"
+    And I navigate to "Question bank" in current page administration
 
   Scenario: Preview a question and get it right.
     When I click on "Preview" "link" in the "Draw benzene" "table_row"

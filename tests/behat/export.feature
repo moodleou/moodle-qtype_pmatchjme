@@ -25,8 +25,7 @@ Feature: Test exporting pattern match with JME questions
 
   @javascript
   Scenario: Export a pattern match with JME question
-    # Import sample file.
-    When I navigate to "Export" node in "Course administration > Question bank"
+    When I navigate to "Question bank > Export" in current page administration
     And I set the field "id_format_xml" to "1"
     And I press "Export questions to file"
     And following "click here" should download between "1325" and "1600" bytes

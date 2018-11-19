@@ -3,14 +3,15 @@
     width: auto;
     display: inline;
 }
+
 .que.pmatchjme .answer input {
     width: 99%;
 }
+
 #page-question-type-pmatchjme .mform .textareamonospace {
     white-space: pre;
     font-family: Andale Mono, Monaco, Courier New, DejaVu Sans Mono, monospace;
 }
-
 
 .que.pmatchjme span.answerlabel {
     vertical-align: top;
@@ -41,6 +42,7 @@ body#page-question-type-pmatchjme div[id^=fitem_id_][id*=_answer_] .fitemtitle,
 body#page-question-type-pmatchjme #fitem_id_addanswers + .fitem .fitemtitle {
     font-weight: bold;
 }
+
 /* Middle */
 body#page-question-type-pmatchjme div[id^=fitem_id_][id*=fraction_],
 body#page-question-type-pmatchjme #fitem_id_addanswers + .fitem + .fitem,
@@ -55,6 +57,7 @@ body#page-question-type-pmatchjme div[id^=fitem_id_][id*=otherfeedback] {
     border-top: 0;
     border-bottom: 0;
 }
+
 /* Bottom */
 body#page-question-type-pmatchjme div[id^=fitem_id_][id*=atomcount_] {
     background: #eee;
@@ -65,9 +68,11 @@ body#page-question-type-pmatchjme div[id^=fitem_id_][id*=atomcount_] {
     border: 1px solid #bbb;
     border-top: 0;
 }
+
 body#page-question-type-pmatchjme #fitem_id_addanswers {
     margin-bottom: 2em;
 }
+
 body#page-question-type-pmatchjme #fitem_id_answer_0 {
     margin-top: 1em;
 }

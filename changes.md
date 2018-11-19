@@ -4,6 +4,7 @@
 ## Changes in 1.9
 
 * Update Behat tests to work in Moodle 3.6.
+* Some coding style fixes.
 
 
 ## Changes in 1.8

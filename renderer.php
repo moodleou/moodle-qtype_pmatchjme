@@ -79,7 +79,12 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
     }
 
     protected function require_js($containerid, question_attempt $qa, $readonly, $correctness, $nostereo, $autoez) {
-        $topnode = 'div.que.pmatchjme#q' . $qa->get_slot();
+        // Segun Babalola (segun@babalola.com), 2019-08-07
+        // The change below aims the fix the fail to save issue reported at :
+        // https://github.com/moodleou/moodle-qtype_pmatchjme/issues/16
+        // All Behat tests pass, however cross-browser testing and compatibility with older versions of Moodle/JME not run.
+        $topnode = 'div.que.pmatchjme#' . $qa->get_outer_question_div_unique_id(); // $qa->get_slot();
+
         if ($correctness) {
             $feedbackimage = $this->feedback_image($this->fraction_for_last_response($qa));
         } else {

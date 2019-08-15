@@ -1,5 +1,8 @@
 # Change log for the Pattern match with JME question type
 
+## Changes 2.0
+
+* Modified definition of "topnode" to ensure DOM element can be found when attempting to JS event listners
 
 ## Changes in 1.9
 

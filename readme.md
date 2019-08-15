@@ -1,7 +1,7 @@
 # Pattern match with JME editor question type [![Build Status](https://travis-ci.org/moodleou/moodle-qtype_pmatchjme.svg?branch=master)](https://travis-ci.org/moodleou/moodle-qtype_pmatchjme)
 
 Students can draw a molecule using the JME editor. This is then graded by matching
-it against vaious model answers that are expressed using a sophisticated patten
+it against various model answers that are expressed using a sophisticated patten
 matching algorithm. See http://docs.moodle.org/dev/The_OU_PMatch_algorithm
 
 
@@ -13,7 +13,6 @@ This question type was created by Jamie Pratt, working for the Open University
 
 ## Installation and set-up
 
-This plugin should be compatible with Moodle 3.4+.
 This question type requires that the pmatch question type
 https://github.com/moodleou/moodle-qtype_pmatch/
 to be installed in order to work.

@@ -1,14 +1,17 @@
 language: php
 
+dist: bionic
 sudo: required
+
+services:
+  mysql
 
 addons:
   firefox: "47.0.1"
   postgresql: "9.6"
   apt:
     packages:
-      - oracle-java8-installer
-      - oracle-java8-set-default
+      - openjdk-8-jre-headless
       - chromium-chromedriver
 
 cache:
@@ -18,15 +21,25 @@ cache:
 
 matrix:
   include:
-    - php: 7.2
+    - php: 7.3
       env:
       - MOODLE_BRANCH=master
       - DB=pgsql
 
-    - php: 7.1
+    - php: 7.2
       env:
-      - MOODLE_BRANCH=MOODLE_35_STABLE
-      - DB=mysqli
+        - MOODLE_BRANCH=MOODLE_37_STABLE
+        - DB=mysqli
+
+    - php: 7.3
+      env:
+        - MOODLE_BRANCH=MOODLE_36_STABLE
+        - DB=pgsql
+
+    - php: 7.2
+      env:
+        - MOODLE_BRANCH=MOODLE_35_STABLE
+        - DB=mysqli
 
     - php: 7.1
       env:
@@ -49,11 +62,15 @@ install:
 script:
   - moodle-plugin-ci phplint
   - moodle-plugin-ci phpcpd
-  # - moodle-plugin-ci phpmd
+  - moodle-plugin-ci phpmd || true
   - moodle-plugin-ci codechecker
   - moodle-plugin-ci validate
   - moodle-plugin-ci savepoints
   - moodle-plugin-ci mustache
   - moodle-plugin-ci grunt
   - moodle-plugin-ci phpunit
+
+  # The following line is a temporary work-around for https://tracker.moodle.org/browse/MDL-66378.
+  # Once that is fixed, this line can go.
+  - curl https://github.com/timhunt/php-webdriver/commit/7a0aa38f591b7395939df25d8cb6677bf99a481f.patch | git apply --directory moodle/vendor/instaclick/php-webdriver
   - moodle-plugin-ci behat --profile chrome

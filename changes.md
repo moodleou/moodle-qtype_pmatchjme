@@ -3,6 +3,7 @@
 ## Changes 2.0
 
 * Modified definition of "topnode" to ensure DOM element can be found when attempting to JS event listners
+* Fix Travis build.
 
 ## Changes in 1.9
 

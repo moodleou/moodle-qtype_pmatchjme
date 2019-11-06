@@ -25,8 +25,10 @@ Feature: Preview a pattern match with JME question
     And I navigate to "Question bank" in current page administration
 
   Scenario: Preview a question and get it right.
-    When I click on "Preview" "link" in the "Draw benzene" "table_row"
+    When I choose "Preview" action for "Draw benzene" in the question bank
     And I switch to "questionpreview" window
+    # This next line should not be necessary. However, the JME was not loading, and this seems to fix it.
+    And I reload the page
     # Select Benzene ring tool.
     And I click on "//div[@id = 'qtype_pmatchjme-applet1']/div/div[@class = 'jsa-resetDiv']/div[@class = 'jsa-resetDiv'][3]/*[name() = 'svg']/*[name() = 'g']/*[name() = 'rect' and @x = '5790' and @y = '750' and @width = '660']" "xpath_element"
     # Click in the drawing area.

@@ -23,6 +23,8 @@
  */
 
 
+use qtype_pmatch\local\spell\qtype_pmatch_spell_checker;
+
 defined('MOODLE_INTERNAL') || die();
 
 
@@ -84,6 +86,18 @@ function xmldb_qtype_pmatchjme_upgrade($oldversion) {
 
         // Next pmatchjme savepoint reached.
         upgrade_plugin_savepoint(true, 2012062502, 'qtype', 'pmatchjme');
+    }
+
+    if ($oldversion < 2020090800) {
+        $toupdate = $DB->get_records_menu('question', ['qtype' => 'pmatchjme'], '', 'id, 0');
+
+        if ($toupdate) {
+            list($qidssql, $qids) = $DB->get_in_or_equal(array_keys($toupdate));
+            $DB->execute("UPDATE {qtype_pmatch} SET applydictionarycheck = '" .
+                    qtype_pmatch_spell_checker::DO_NOT_CHECK_OPTION . "' WHERE questionid $qidssql", $qids);
+        }
+        // Pmatchjme savepoint reached.
+        upgrade_plugin_savepoint(true, 2020090800, 'qtype', 'pmatchjme');
     }
 
     return true;

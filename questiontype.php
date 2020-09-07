@@ -23,6 +23,8 @@
  */
 
 
+use qtype_pmatch\local\spell\qtype_pmatch_spell_checker;
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/question/type/pmatch/questiontype.php');
@@ -60,7 +62,7 @@ class qtype_pmatchjme extends qtype_pmatch {
         global $DB;
         $question->usecase = 1;
         $question->forcelength = 0;
-        $question->applydictionarycheck = 0;
+        $question->applydictionarycheck = qtype_pmatch_spell_checker::DO_NOT_CHECK_OPTION;
         $question->extenddictionary = '';
         $question->converttospace = '';
         if (!empty($question->id)) {

@@ -28,7 +28,7 @@ $plugin->version   = 2020090800;
 $plugin->requires  = 2018051700;
 $plugin->component = 'qtype_pmatchjme';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '2.1 for Moodle 3.5+';
+$plugin->release   = '2.2 for Moodle 3.8+';
 
 $plugin->dependencies = array(
     'qtype_pmatch' => 2019091000,

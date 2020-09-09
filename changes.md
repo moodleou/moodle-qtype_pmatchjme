@@ -1,5 +1,10 @@
 # Change log for the Pattern match with JME question type
 
+## Changes 2.2
+
+* Fix compatibility with spell-checking in the latest pattern-match question type.
+
+
 ## Changes 2.1
 
 * Update Behat tests to work in Moodle 3.8.
@@ -9,6 +14,7 @@
 
 * Modified definition of "topnode" to ensure DOM element can be found when attempting to JS event listners
 * Fix Travis build.
+
 
 ## Changes in 1.9
 

@@ -1,4 +1,4 @@
-# Pattern match with JME editor question type [![Build Status](https://travis-ci.com/moodleou/moodle-qtype_pmatchjme.svg?branch=master)](https://travis-ci.com/moodleou/moodle-qtype_pmatchjme)
+# Pattern match with JME editor question type
 
 Students can draw a molecule using the JME editor. This is then graded by matching
 it against various model answers that are expressed using a sophisticated patten

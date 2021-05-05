@@ -58,6 +58,14 @@ class qtype_pmatchjme_answer extends question_answer {
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class qtype_pmatchjme extends qtype_pmatch {
+
+    public function save_defaults_for_new_questions(stdClass $fromform): void {
+        $grandparent = new question_type();
+        $grandparent->save_defaults_for_new_questions($fromform);
+        $this->set_default_value('allowsuperscript', $fromform->allowsuperscript);
+        $this->set_default_value('allowsubscript', $fromform->allowsubscript);
+    }
+
     public function save_question_options($question) {
         global $DB;
         $question->usecase = 1;

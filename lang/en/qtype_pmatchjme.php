@@ -38,6 +38,11 @@ $string['pluginname_link'] = 'question/type/pmatchjme';
 $string['pluginnameadding'] = 'Adding a pattern match with molecular editor question';
 $string['pluginnameediting'] = 'Editing a pattern match with molecular editor question';
 $string['pluginnamesummary'] = 'Allows drawing a molecule using the molecular editor. The response is graded by comparing against various model answers, which are described using the OU\'s pattern match syntax.';
+$string['privacy:metadata'] = 'Pattern match with molecular editor question type plugin allows question authors to set default options as user preferences.';
+$string['privacy:preference:defaultmark'] = 'The default mark set for a given question.';
+$string['privacy:preference:penalty'] = 'The penalty for each incorrect try when questions are run using the \'Interactive with multiple tries\' or \'Adaptive mode\' behaviour.';
+$string['privacy:preference:allowsubscript'] = 'Whether subscript is used to input answer.';
+$string['privacy:preference:allowsuperscript'] = 'Whether superscript is used to input answer.';
 $string['smilesequal'] = 'You have the correct number of {$a}.';
 $string['smilestoofew'] = 'You have too few {$a}.';
 $string['smilestoomany'] = 'You have too many {$a}.';
@@ -55,5 +60,3 @@ $string['smiles_triplebond'] = 'triple bonds';
 $string['smilestoofew'] = 'You have too few {$a}.';
 $string['smilestoomany'] = 'You have too many {$a}.';
 $string['smilescorrectcount'] = 'You have the correct molecular formula but not the correct structure.';
-
-$string['privacy:metadata'] = 'The Pattern match with molecular editor plugin does not store any personal data.';

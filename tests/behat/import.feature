@@ -19,7 +19,8 @@ Feature: Test importing pattern match with JME questions
 
   @javascript @_file_upload
   Scenario: import pattern match with JME question.
-    When I navigate to "Question bank > Import" in current page administration
+    When I navigate to "Question bank" in current page administration
+    And I select "Import" from the "Question bank tertiary navigation" singleselect
     And I set the field "id_format_xml" to "1"
     And I upload "question/type/pmatchjme/tests/fixtures/testquestion.moodle.xml" file to "Import" filemanager
     And I press "id_submitbutton"

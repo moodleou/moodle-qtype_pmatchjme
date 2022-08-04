@@ -119,7 +119,7 @@ class qtype_pmatchjme extends qtype_pmatch {
             }
         }
     }
-    public function delete_question($questionid, $contextid) {
+    public function delete_question($questionid, $contextid): void {
         $this->delete_extra_answer_records($questionid);
         parent::delete_question($questionid, $contextid);
     }

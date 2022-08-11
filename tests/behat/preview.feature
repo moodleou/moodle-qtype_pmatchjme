@@ -20,13 +20,9 @@ Feature: Preview a pattern match with JME question
     And the following "questions" exist:
       | questioncategory | qtype     | name         | template |
       | Test questions   | pmatchjme | Draw benzene | benzene  |
-    Given I log in as "teacher1"
-    And I am on "Course 1" course homepage
-    And I navigate to "Question bank" in current page administration
 
   Scenario: Preview a question and get it right.
-    When I choose "Preview" action for "Draw benzene" in the question bank
-    And I switch to "questionpreview" window
+    When I am on the "Draw benzene" "core_question > preview" page logged in as "teacher1"
     # This next line should not be necessary. However, the JME was not loading, and this seems to fix it.
     And I reload the page
     # Select Benzene ring tool.
@@ -36,4 +32,3 @@ Feature: Preview a pattern match with JME question
     And I press "Submit and finish"
     Then the state of "Please draw a benzene molecule." question is shown as "Correct"
     And I should see "Mark 1.00 out of 1.00"
-    And I switch to the main window

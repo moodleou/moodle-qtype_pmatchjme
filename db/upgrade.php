@@ -25,9 +25,6 @@
 
 use qtype_pmatch\local\spell\qtype_pmatch_spell_checker;
 
-defined('MOODLE_INTERNAL') || die();
-
-
 /**
  * Upgrade code for the pmatchjme question type.
  * @param int $oldversion the version we are upgrading from.

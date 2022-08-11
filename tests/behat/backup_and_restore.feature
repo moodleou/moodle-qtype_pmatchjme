@@ -29,7 +29,7 @@ Feature: Test duplicating a quiz containing a pattern match with JME question
     And I restore "test_backup.mbz" backup into a new course using this options:
       | Schema | Course name | Course 2 |
     And I navigate to "Question bank" in current page administration
-    When I choose "Edit question" action for "Draw benzene" in the question bank
+    And I choose "Edit question" action for "Draw benzene" in the question bank
     Then the following fields match these values:
       | Question name       | Draw benzene                            |
       | Question text       | Please draw a benzene molecule.         |

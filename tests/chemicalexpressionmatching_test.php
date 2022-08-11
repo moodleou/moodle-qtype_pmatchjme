@@ -22,6 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace qtype_pmatchjme;
 
 defined('MOODLE_INTERNAL') || die();
 global $CFG;
@@ -35,21 +36,21 @@ require_once($CFG->dirroot . '/question/type/pmatch/pmatchlib.php');
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @group     qtype_pmatchjme
  */
-class pmatchjme_parse_string_test extends basic_testcase {
+class chemicalexpressionmatching_test extends \basic_testcase {
 
     protected function match($string, $expression, $options = null) {
-        $string = new pmatch_parsed_string($string, $options);
-        $expression = new pmatch_expression($expression, $options);
+        $string = new \pmatch_parsed_string($string, $options);
+        $expression = new \pmatch_expression($expression, $options);
         return $expression->matches($string);
     }
 
     public function test_pmatch_parse_string() {
-        $options = new pmatch_options();
+        $options = new \pmatch_options();
 
-        $parsedstring = new pmatch_parsed_string('CC(=O)O', $options);
+        $parsedstring = new \pmatch_parsed_string('CC(=O)O', $options);
         $this->assertEquals($parsedstring->get_words(), array('CC(=O)O'));
 
-        $parsedstring = new pmatch_parsed_string('CC2COc1ccccc1N2C(=O)C(Cl)Cl', $options);
+        $parsedstring = new \pmatch_parsed_string('CC2COc1ccccc1N2C(=O)C(Cl)Cl', $options);
         $this->assertEquals($parsedstring->get_words(), array('CC2COc1ccccc1N2C(=O)C(Cl)Cl'));
     }
 

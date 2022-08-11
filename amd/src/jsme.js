@@ -16,15 +16,15 @@
 /**
  * JavaScript for handling JSME initialisation in pmatchjme forms.
  *
- * @package    qtype
- * @subpackage pmatchjme
+ * @module     qtype_pmatchjme
+ * @class      jsme
  * @copyright  2018 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/*global JSApplet*/
+/* global JSApplet */
 
-define(['jquery'], function($) {
+define([], function() {
 
     "use strict";
 
@@ -32,9 +32,9 @@ define(['jquery'], function($) {
      * @alias qtype_pmatchjme/jsme
      */
     var t = {
-        max_loading_waits: 10,
+        maxLoadingWaits: 10,
 
-        insert_applet: function (containerid, topselector, feedback, readonly, nostereo, autoez) {
+        insertApplet: function(containerid, topselector, feedback, readonly, nostereo, autoez) {
             var jmeoptions = [];
             if (nostereo) {
                 jmeoptions.push("nostereo");
@@ -45,25 +45,25 @@ define(['jquery'], function($) {
             if (readonly) {
                 jmeoptions.push("depict");
             }
-            t.show_jsme(topselector, containerid, jmeoptions, t.max_loading_waits);
+            t.showJsme(topselector, containerid, jmeoptions, t.maxLoadingWaits);
         },
 
-        show_jsme: function (topselector, containerid, jmeoptions, remainingloadingwaits) {
-            var topnode = $(topselector),
+        showJsme: function(topselector, containerid, jmeoptions, remainingloadingwaits) {
+            var topnode = document.querySelector(topselector),
                 jme = false,
                 jsmeApplet = false;
 
             // Ensure the JSME code is loaded properly. IE 8 struggles.
             if (typeof JSApplet !== 'object' && remainingloadingwaits > 0) {
-                setTimeout(function () {
-                    t.show_jsme(topselector, containerid, jmeoptions, remainingloadingwaits - 1);
+                setTimeout(function() {
+                    t.showJsme(topselector, containerid, jmeoptions, remainingloadingwaits - 1);
                 }, 100);
                 return;
             }
 
             // Hide the loading message.
-            $('#' + containerid).html('');
-            $('#' + containerid).removeClass('qtype_pmatchjme-applet-warning');
+            document.getElementById(containerid).innerHTML = '';
+            document.getElementById(containerid).classList.remove('qtype_pmatchjme-applet-warning');
 
             // Instantiate a new JSME.
             jsmeApplet = new JSApplet.JSME(containerid, '368px', '312px', {"options": jmeoptions.join(',')});
@@ -76,7 +76,7 @@ define(['jquery'], function($) {
             }
 
             // Add event handler to save the values on form submit.
-            topnode.parents('form').on('submit', function () {
+            topnode.parents('form').on('submit', function() {
                 topnode.find('input.answer').val(jsmeApplet.smiles());
                 topnode.find('input.jme').val(jsmeApplet.jmeFile());
                 topnode.find('input.mol').val(jsmeApplet.molFile());

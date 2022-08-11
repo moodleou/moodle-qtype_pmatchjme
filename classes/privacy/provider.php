@@ -26,7 +26,6 @@ use core_privacy\local\metadata\collection;
 use core_privacy\local\request\writer;
 use core_privacy\local\request\transform;
 
-defined('MOODLE_INTERNAL') || die();
 /**
  * Privacy Subsystem for qtype_pmatchjme implementing user_preference_provider.
  *

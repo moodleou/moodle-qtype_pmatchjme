@@ -20,13 +20,11 @@ Feature: Test editing a pattern match with JME questions
     And the following "questions" exist:
       | questioncategory | qtype     | name         | template |
       | Test questions   | pmatchjme | Draw benzene | benzene  |
-    And I log in as "teacher1"
-    And I am on "Course 1" course homepage
-    And I navigate to "Question bank" in current page administration
 
   @javascript
   Scenario: Edit a pattern match with JME question
-    When I choose "Edit question" action for "Draw benzene" in the question bank
+    # Edit the question.
+    When I am on the "Draw benzene" "core_question > edit" page logged in as teacher1
     And I set the following fields to these values:
       | Question name | Edited question name |
     And I press "id_submitbutton"

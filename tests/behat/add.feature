@@ -38,9 +38,9 @@ Feature: Test creating a pattern match with JME question
       | Hint 2              | Haven't you drunk enough alcohol?  |
     Then I should see "My first molecular editor question"
     # Checking that the next new question form displays user preferences settings.
-    When I press "Create a new question ..."
+    And I press "Create a new question ..."
     And I set the field "item_qtype_pmatchjme" to "1"
     And I click on "Add" "button" in the "Choose a question type to add" "dialogue"
-    Then the following fields match these values:
+    And the following fields match these values:
       | id_allowsuperscript     | 0                                                             |
       | id_allowsubscript       | 1                                                             |

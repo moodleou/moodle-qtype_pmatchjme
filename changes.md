@@ -1,5 +1,10 @@
 # Change log for the Pattern match with JME question type
 
+## Changes 2.3
+
+* This version works with Moodle 4.0.
+
+
 ## Changes 2.2
 
 * Fix compatibility with spell-checking in the latest pattern-match question type.

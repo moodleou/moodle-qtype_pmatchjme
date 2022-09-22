@@ -2,8 +2,8 @@
 <libraries>
   <library>
       <location>jsme</location>
-      <name>JSME Molecule Editor</name>
+      <name>JSME Molecule Editor - https://jsme-editor.github.io/</name>
       <license>BSD</license>
-      <version>2.4.9+</version>
+      <version>2022-02-26</version>
   </library>
 </libraries>

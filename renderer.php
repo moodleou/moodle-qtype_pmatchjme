@@ -72,7 +72,7 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
 
         $result .= html_writer::tag('div', $this->hidden_fields($qa), array('class' => 'inputcontrol'));
 
-        $result .= $this->require_js($containerid, $qa, $options->readonly, $options->correctness,
+        $this->require_js($containerid, $qa, $options->readonly, $options->correctness,
                 $question->allowsubscript, $question->allowsuperscript);
 
         return $result;
@@ -84,16 +84,9 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
         } else {
             $feedbackimage = '';
         }
-        $this->page->requires->js_call_amd('qtype_pmatchjme/jsme', 'insert_applet',
-                [$containerid, '#' . $qa->get_outer_question_div_unique_id(),
+        $this->page->requires->js_call_amd('qtype_pmatchjme/jsme', 'insertApplet',
+                [$containerid, $qa->get_outer_question_div_unique_id(),
                         $feedbackimage, $readonly, (bool) $nostereo, (bool) $autoez]);
-        // Include JSME loader script as an html tag.
-        if ($this->page->requires->should_create_one_time_item_now('qtype_pmatchjme-jsme')) {
-            return html_writer::tag('script', '',
-                    array('src' => new moodle_url('/question/type/pmatchjme/jsme/jsme.nocache.js')));
-        } else {
-            return '';
-        }
     }
 
     protected function hidden_fields(question_attempt $qa) {

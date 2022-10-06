@@ -35,6 +35,9 @@ require_once($CFG->dirroot . '/question/type/pmatch/pmatchlib.php');
  * @copyright 2012 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @group     qtype_pmatchjme
+ * @covers \pmatch_expression
+ * @covers \pmatch_options
+ * @covers \pmatch_parsed_string
  */
 class chemicalexpressionmatching_test extends \basic_testcase {
 

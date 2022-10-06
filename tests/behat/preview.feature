@@ -23,12 +23,8 @@ Feature: Preview a pattern match with JME question
 
   Scenario: Preview a question and get it right.
     When I am on the "Draw benzene" "core_question > preview" page logged in as "teacher1"
-    # This next line should not be necessary. However, the JME was not loading, and this seems to fix it.
-    And I reload the page
-    # Select Benzene ring tool.
-    And I click on "//div[@id = 'qtype_pmatchjme-applet1']/div/div[@class = 'jsa-resetDiv']/div[@class = 'jsa-resetDiv'][3]/*[name() = 'svg']/*[name() = 'g']/*[name() = 'rect' and @x = '5790' and @y = '750' and @width = '660']" "xpath_element"
-    # Click in the drawing area.
-    And I click on "//div[@id = 'qtype_pmatchjme-applet1']/div/div[@class = 'jsa-resetDiv']/div[@class = 'jsa-resetDiv'][2]" "xpath_element"
+    And I click on the benzene tool in the pattern match with JME question
+    And I click on the drawing area in the pattern match with JME question
     And I press "Submit and finish"
     Then the state of "Please draw a benzene molecule." question is shown as "Correct"
     And I should see "Mark 1.00 out of 1.00"

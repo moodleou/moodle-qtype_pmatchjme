@@ -41,6 +41,7 @@ require_once($CFG->dirroot . '/question/type/pmatchjme/classes/privacy/provider.
  * @package    qtype_pmatchjme
  * @copyright  2021 The Open university
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \qtype_pmatchjme\privacy\provider
  */
 class privacy_provider_test extends \core_privacy\tests\provider_testcase {
     // Include the privacy helper which has assertions on it.

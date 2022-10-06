@@ -105,7 +105,7 @@ jobs:
         run: moodle-plugin-ci mustache
 
       - name: Grunt
-        if: ${{ always() }}
+        if: ${{ matrix.moodle-branch == 'MOODLE_400_STABLE' }}
         run: moodle-plugin-ci grunt --max-lint-warnings 0
 
       - name: PHPUnit tests

@@ -8,9 +8,9 @@
     width: 99%;
 }
 
-#page-question-type-pmatchjme .mform .textareamonospace {
-    white-space: pre;
-    font-family: Andale Mono, Monaco, Courier New, DejaVu Sans Mono, monospace;
+/* modal from the JME editor. Not inside the .que.pmatchjme, but hopefully this class is unique enough. */
+.gwt-DecoratedPopupPanel.mosaic-WindowPanel button {
+    padding: 0;
 }
 
 .que.pmatchjme span.answerlabel {
@@ -23,6 +23,11 @@
     background: #fff;
     color: #ccc;
     padding: 5px;
+}
+
+#page-question-type-pmatchjme .mform .textareamonospace {
+    white-space: pre;
+    font-family: Andale Mono, Monaco, Courier New, DejaVu Sans Mono, monospace;
 }
 
 /* Editing form. Style repeated elements*/

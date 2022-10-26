@@ -59,6 +59,11 @@ class qtype_pmatchjme_answer extends question_answer {
  */
 class qtype_pmatchjme extends qtype_pmatch {
 
+    public function get_extra_question_bank_actions(stdClass $question): array {
+        // We don't want the action that qtype_pmatch creates, so override.
+        return [];
+    }
+
     public function save_defaults_for_new_questions(stdClass $fromform): void {
         $grandparent = new question_type();
         $grandparent->save_defaults_for_new_questions($fromform);

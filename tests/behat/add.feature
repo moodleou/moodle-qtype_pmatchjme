@@ -25,10 +25,10 @@ Feature: Test creating a pattern match with JME question
       | Question text       | Draw ethanol                       |
       | id_allowsuperscript | 0                                  |
       | id_allowsubscript   | 1                                  |
-      | Answer 1            | match (CCO)                        |
+      | Answer 1 must match | match (CCO)                        |
       | id_fraction_0       | 100%                               |
       | id_feedback_0       | Well done!                         |
-      | Answer 2            | match (CO)                         |
+      | Answer 2 must match | match (CO)                         |
       | id_fraction_1       | 100%                               |
       | id_feedback_1       | Don't confuse meths with alcohol!  |
       | id_atomcount_1      | 1                                  |

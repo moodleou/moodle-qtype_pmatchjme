@@ -34,6 +34,10 @@ require_once($CFG->dirroot.'/question/type/pmatch/question.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class qtype_pmatchjme_question extends qtype_pmatch_question {
+
+    /** @var boolean whether answers should be graded case-sensitively. */
+    public $usecase;
+
     public function get_expected_data() {
         return array('answer' => PARAM_RAW, 'jme' => PARAM_RAW, 'mol' => PARAM_RAW);
     }

@@ -34,6 +34,10 @@ require_once($CFG->dirroot . '/question/type/pmatch/questiontype.php');
  * in the database.
  */
 class qtype_pmatchjme_answer extends question_answer {
+
+    /** @var integer */
+    public $atomcount;
+
     /**
      * Constructor.
      * @param int $id the answer.

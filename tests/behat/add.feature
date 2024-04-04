@@ -25,6 +25,7 @@ Feature: Test creating a pattern match with JME question
       | Question text       | Draw ethanol                       |
       | id_allowsuperscript | 0                                  |
       | id_allowsubscript   | 1                                  |
+      | Model answer        | CCO                                |
       | Answer 1 must match | match (CCO)                        |
       | id_fraction_0       | 100%                               |
       | id_feedback_0       | Well done!                         |

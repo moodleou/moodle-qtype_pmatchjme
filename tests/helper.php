@@ -69,6 +69,7 @@ class qtype_pmatchjme_test_helper extends question_test_helper {
         $fromform->generalfeedback = array('text' => 'This is the simplest aromatic molecule.', 'format' => FORMAT_HTML);
         $fromform->allowsubscript = 0;
         $fromform->allowsuperscript = 0;
+        $fromform->modelanswer = 'c1ccccc1';
         $fromform->synonymsdata = array();
 
         $fromform->answer = array('match (c1ccccc1)');

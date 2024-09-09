@@ -21,6 +21,8 @@ Feature: Test duplicating a quiz containing a pattern match with JME question
       | Draw benzene | 1 |
     And I log in as "admin"
     And I am on "Course 1" course homepage
+    And the following config values are set as admin:
+      | enableasyncbackup | 0 |
 
   @javascript
   Scenario: Backup and restore a course containing a pattern match with JME question

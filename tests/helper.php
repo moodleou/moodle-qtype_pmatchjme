@@ -40,7 +40,7 @@ class qtype_pmatchjme_test_helper extends question_test_helper {
         question_bank::load_question_definition_classes('pmatchjme');
         $question = new qtype_pmatchjme_question();
 
-        test_question_maker::initialise_a_question($dd);
+        test_question_maker::initialise_a_question($question);
 
         $question->name = 'Draw benzene';
         $question->questiontext = 'Please draw a benzene molecule.';

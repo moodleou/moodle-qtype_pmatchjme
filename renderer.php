@@ -136,9 +136,9 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
 
     public function specific_feedback(question_attempt $qa) {
         $question = $qa->get_question();
-
-        $answer = $question->get_matching_answer($this->get_last_response($qa));
-        if (!$answer) {
+        $response = $this->get_last_response($qa);
+        $answer = $question->get_matching_answer($response);
+        if (!$answer || !isset($response['answer'])) {
             return '';
         }
 
@@ -148,7 +148,6 @@ class qtype_pmatchjme_renderer extends qtype_pmatch_renderer {
                     $qa, 'question', 'answerfeedback', $answer->id);
         }
         if ($answer->atomcount) {
-            $response = $this->get_last_response($qa);
             $atomcountfeedbacks = $question->check_atom_count($response);
             if (count($atomcountfeedbacks) > 1) {
                 $listitems = '';

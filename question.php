@@ -59,6 +59,10 @@ class qtype_pmatchjme_question extends qtype_pmatch_question {
 
     public function check_atom_count($response) {
         $correctresponse = $this->get_correct_response();
+        if (!isset($correctresponse['answer'])) {
+            // We don't really have correct answer.
+            return [];
+        }
         $pmatchanswer = $correctresponse['answer'];
         $answerparts = $this->count_compound_parts($pmatchanswer);
 

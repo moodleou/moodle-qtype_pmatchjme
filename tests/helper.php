@@ -48,6 +48,7 @@ class qtype_pmatchjme_test_helper extends question_test_helper {
         $question->qtype = question_bank::get_qtype('pmatchjme');
         $question->allowsubscript = false;
         $question->allowsuperscript = false;
+        $question->quotematching = 0;
 
         $question->answers = array(
             1 => new qtype_pmatchjme_answer(1, 'match (c1ccccc1)', 1, 'Well done!', FORMAT_HTML, 0),
@@ -70,6 +71,7 @@ class qtype_pmatchjme_test_helper extends question_test_helper {
         $fromform->allowsubscript = 0;
         $fromform->allowsuperscript = 0;
         $fromform->modelanswer = 'c1ccccc1';
+        $fromform->quotematching = 0;
         $fromform->synonymsdata = array();
 
         $fromform->answer = array('match (c1ccccc1)');

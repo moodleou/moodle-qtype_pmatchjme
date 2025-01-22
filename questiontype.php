@@ -75,6 +75,12 @@ class qtype_pmatchjme extends qtype_pmatch {
         $this->set_default_value('allowsubscript', $fromform->allowsubscript);
     }
 
+    #[\Override]
+    public function save_question($question, $fromform): stdClass {
+        $fromform->quotematching = 0;
+        return parent::save_question($question, $fromform);
+    }
+
     public function save_question_options($question) {
         global $DB;
         $question->usecase = 1;

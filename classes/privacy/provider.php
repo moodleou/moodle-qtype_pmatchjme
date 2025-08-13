@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Privacy Subsystem implementation for qtype_.pmatchjme.
  *
@@ -71,7 +72,7 @@ class provider implements
         }
         $preferences = [
                 'allowsuperscript',
-                'allowsubscript'
+                'allowsubscript',
         ];
         foreach ($preferences as $key) {
             $preference = get_user_preferences("qtype_pmatchjme_{$key}", null, $userid);

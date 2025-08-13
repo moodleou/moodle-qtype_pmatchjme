@@ -22,6 +22,7 @@ require_once(__DIR__ . '/../../../../../lib/behat/behat_base.php');
 /**
  * Steps definitions for the pattern match with JME question type.
  *
+ * @package qtype_pmatchjme
  * @copyright 2022 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

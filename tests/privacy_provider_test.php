@@ -25,7 +25,7 @@
 namespace qtype_pmatchjme;
 
 use core_privacy\local\metadata\collection;
-use \core_privacy\local\request\user_preference_provider;
+use core_privacy\local\request\user_preference_provider;
 use qtype_pmatchjme\privacy\provider;
 use core_privacy\local\request\writer;
 use core_privacy\local\request\transform;
@@ -43,16 +43,22 @@ require_once($CFG->dirroot . '/question/type/pmatchjme/classes/privacy/provider.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers \qtype_pmatchjme\privacy\provider
  */
-class privacy_provider_test extends \core_privacy\tests\provider_testcase {
+final class privacy_provider_test extends \core_privacy\tests\provider_testcase {
     // Include the privacy helper which has assertions on it.
 
-    public function test_get_metadata() {
+    /**
+     * Test that the privacy metadata provider returns the expected metadata collection.
+     */
+    public function test_get_metadata(): void {
         $collection = new \core_privacy\local\metadata\collection('qtype_pmatchjme');
         $actual = \qtype_pmatchjme\privacy\provider::get_metadata($collection);
         $this->assertEquals($collection, $actual);
     }
 
-    public function test_export_user_preferences_no_pref() {
+    /**
+     * Test exporting user preferences when no preferences are set.
+     */
+    public function test_export_user_preferences_no_pref(): void {
         $this->resetAfterTest();
 
         $user = $this->getDataGenerator()->create_user();
@@ -69,7 +75,7 @@ class privacy_provider_test extends \core_privacy\tests\provider_testcase {
      * @param string $value The value stored in the database
      * @param string $expected The expected transformed value
      */
-    public function test_export_user_preferences($name, $value, $expected) {
+    public function test_export_user_preferences($name, $value, $expected): void {
         $this->resetAfterTest();
         $user = $this->getDataGenerator()->create_user();
         set_user_preference("qtype_pmatchjme_$name", $value, $user);
@@ -93,14 +99,14 @@ class privacy_provider_test extends \core_privacy\tests\provider_testcase {
      *
      * @return array Array of valid user preferences.
      */
-    public function user_preference_provider() {
+    public static function user_preference_provider(): array {
         return [
                 'default mark 2' => ['defaultmark', 2, 2],
                 'penalty 33.33333%' => ['penalty', 0.3333333, '33.33333%'],
                 'allowsubscript yes' => ['allowsubscript', 1, 'Yes'],
                 'allowsubscript no' => ['allowsubscript', 0, 'No'],
                 'allowsuperscript yes' => ['allowsuperscript', 1, 'Yes'],
-                'allowsuperscript no' => ['allowsuperscript', 0, 'No']
+                'allowsuperscript no' => ['allowsuperscript', 0, 'No'],
         ];
     }
 }

@@ -26,9 +26,10 @@ require_once($CFG->dirroot . '/question/engine/tests/helpers.php');
  *
  * @package qtype_pmatchjme
  * @copyright 2024 The Open University
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers \qtype_pmatchjme_question
  */
-class walkthrough_test extends \qbehaviour_walkthrough_test_base {
+final class walkthrough_test extends \qbehaviour_walkthrough_test_base {
 
     /**
      * Test attempt question with mode deferredfeedback.

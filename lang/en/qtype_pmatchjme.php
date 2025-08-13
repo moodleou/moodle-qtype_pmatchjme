@@ -14,12 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * OU pmatch with molecular editor question question type language strings.
  *
- * @package    qtype
- * @subpackage pmatchjme
+ * @package    qtype_pmatchjme
  * @copyright  2011 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -39,24 +37,22 @@ $string['pluginnameadding'] = 'Adding a pattern match with molecular editor ques
 $string['pluginnameediting'] = 'Editing a pattern match with molecular editor question';
 $string['pluginnamesummary'] = 'Allows drawing a molecule using the molecular editor. The response is graded by comparing against various model answers, which are described using the OU\'s pattern match syntax.';
 $string['privacy:metadata'] = 'Pattern match with molecular editor question type plugin allows question authors to set default options as user preferences.';
-$string['privacy:preference:defaultmark'] = 'The default mark set for a given question.';
-$string['privacy:preference:penalty'] = 'The penalty for each incorrect try when questions are run using the \'Interactive with multiple tries\' or \'Adaptive mode\' behaviour.';
 $string['privacy:preference:allowsubscript'] = 'Whether subscript is used to input answer.';
 $string['privacy:preference:allowsuperscript'] = 'Whether superscript is used to input answer.';
+$string['privacy:preference:defaultmark'] = 'The default mark set for a given question.';
+$string['privacy:preference:penalty'] = 'The penalty for each incorrect try when questions are run using the \'Interactive with multiple tries\' or \'Adaptive mode\' behaviour.';
+$string['smiles_aromatic_c'] = 'aromatic carbon atoms';
+$string['smiles_br'] = 'bromine atoms';
+$string['smiles_c'] = 'aliphatic carbon atoms';
+$string['smiles_cl'] = 'chlorine atoms';
+$string['smiles_doublebond'] = 'double bonds';
+$string['smiles_f'] = 'fluorine atoms';
+$string['smiles_i'] = 'iodine atoms';
+$string['smiles_n'] = 'nitrogen atoms';
+$string['smiles_o'] = 'oxygen atoms';
+$string['smiles_s'] = 'sulfur atoms';
+$string['smiles_triplebond'] = 'triple bonds';
+$string['smilescorrectcount'] = 'You have the correct molecular formula but not the correct structure.';
 $string['smilesequal'] = 'You have the correct number of {$a}.';
 $string['smilestoofew'] = 'You have too few {$a}.';
 $string['smilestoomany'] = 'You have too many {$a}.';
-$string['smiles_aromatic_c'] = 'aromatic carbon atoms';
-$string['smiles_c'] = 'aliphatic carbon atoms';
-$string['smiles_o'] = 'oxygen atoms';
-$string['smiles_n'] = 'nitrogen atoms';
-$string['smiles_s'] = 'sulfur atoms';
-$string['smiles_f'] = 'fluorine atoms';
-$string['smiles_cl'] = 'chlorine atoms';
-$string['smiles_br'] = 'bromine atoms';
-$string['smiles_i'] = 'iodine atoms';
-$string['smiles_doublebond'] = 'double bonds';
-$string['smiles_triplebond'] = 'triple bonds';
-$string['smilestoofew'] = 'You have too few {$a}.';
-$string['smilestoomany'] = 'You have too many {$a}.';
-$string['smilescorrectcount'] = 'You have the correct molecular formula but not the correct structure.';

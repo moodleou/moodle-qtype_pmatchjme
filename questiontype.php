@@ -35,14 +35,14 @@ require_once($CFG->dirroot . '/question/type/pmatch/questiontype.php');
  */
 class qtype_pmatchjme_answer extends question_answer {
 
-    /** @var integer */
+    /** @var int Number of atoms. */
     public $atomcount;
 
     /**
      * Constructor.
+     *
      * @param int $id the answer.
      * @param string $answer the answer.
-     * @param int $answerformat the format of the answer.
      * @param number $fraction the fraction this answer is worth.
      * @param string $feedback the feedback for this answer.
      * @param int $feedbackformat the format of the feedback.
@@ -63,11 +63,13 @@ class qtype_pmatchjme_answer extends question_answer {
  */
 class qtype_pmatchjme extends qtype_pmatch {
 
+    #[\Override]
     public function get_extra_question_bank_actions(stdClass $question): array {
         // We don't want the action that qtype_pmatch creates, so override.
         return [];
     }
 
+    #[\Override]
     public function save_defaults_for_new_questions(stdClass $fromform): void {
         $grandparent = new question_type();
         $grandparent->save_defaults_for_new_questions($fromform);
@@ -81,6 +83,7 @@ class qtype_pmatchjme extends qtype_pmatch {
         return parent::save_question($question, $fromform);
     }
 
+    #[\Override]
     public function save_question_options($question) {
         global $DB;
         $question->usecase = 1;
@@ -93,12 +96,18 @@ class qtype_pmatchjme extends qtype_pmatch {
         }
         return parent::save_question_options($question);
     }
+
+    #[\Override]
     public function save_hints($formdata, $withparts = false) {
         parent::save_hints($formdata, true);
     }
+
+    #[\Override]
     public function extra_answer_fields() {
-        return array('qtype_pmatchjme_answers', 'atomcount');
+        return ['qtype_pmatchjme_answers', 'atomcount'];
     }
+
+    #[\Override]
     public function save_extra_answer_data($question, $key, $answerid) {
         global $DB;
         $extraanswerdata = new stdClass();
@@ -122,7 +131,7 @@ class qtype_pmatchjme extends qtype_pmatch {
      */
     protected function initialise_question_answers(question_definition $question,
             $questiondata, $forceplaintextanswers = true) {
-        $question->answers = array();
+        $question->answers = [];
         if (empty($questiondata->options->answers)) {
             return;
         }
@@ -134,16 +143,23 @@ class qtype_pmatchjme extends qtype_pmatch {
             }
         }
     }
+
+    #[\Override]
     public function delete_question($questionid, $contextid): void {
         $this->delete_extra_answer_records($questionid);
         parent::delete_question($questionid, $contextid);
     }
 
-    protected function delete_extra_answer_records($questionid) {
+    /**
+     * Delete extra answer records linked to this question.
+     *
+     * @param int $questionid The question ID.
+     */
+    protected function delete_extra_answer_records(int $questionid): void {
         global $DB;
         $answerids = $DB->get_records_menu('question_answers',
-                                           array('question' => $questionid),
-                                           '', 'id, 1');
+            ['question' => $questionid],
+            '', 'id, 1');
         if (count($answerids) != 0) {
             list ($sql, $params) = $DB->get_in_or_equal(array_keys($answerids));
             $DB->delete_records_select('qtype_pmatchjme_answers', "answerid $sql", $params);

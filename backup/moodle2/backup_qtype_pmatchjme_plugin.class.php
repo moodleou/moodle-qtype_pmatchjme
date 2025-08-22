@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Backup qtype pmatchjme plugin.
+ *
  * @package   qtype_pmatchjme
  * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -50,13 +52,13 @@ class backup_qtype_pmatchjme_plugin extends backup_qtype_plugin {
         $this->add_question_qtype_pmatchjme_answers($pluginwrapper);
 
         // Now create the qtype own structures.
-        $pmatchoptions = new backup_nested_element('pmatchjme', array('id'), array('forcelength',
+        $pmatchoptions = new backup_nested_element('pmatchjme', ['id'], ['forcelength',
             'usecase', 'converttospace', 'applydictionarycheck', 'extenddictionary',
-            'allowsubscript', 'allowsuperscript'));
+            'allowsubscript', 'allowsuperscript']);
 
         $synonyms = new backup_nested_element('synonyms');
 
-        $synonym = new backup_nested_element('synonym', array('id'), array('word', 'synonyms'));
+        $synonym = new backup_nested_element('synonym', ['id'], ['word', 'synonyms']);
 
         $pluginwrapper->add_child($pmatchoptions);
         $pluginwrapper->add_child($synonyms);
@@ -64,15 +66,22 @@ class backup_qtype_pmatchjme_plugin extends backup_qtype_plugin {
 
         // Set source to populate the data.
         $pmatchoptions->set_source_table('qtype_pmatch',
-                array('questionid' => backup::VAR_PARENTID));
+            ['questionid' => backup::VAR_PARENTID]);
         $synonym->set_source_table('qtype_pmatch_synonyms',
-                array('questionid' => backup::VAR_PARENTID), 'id ASC');
+            ['questionid' => backup::VAR_PARENTID], 'id ASC');
 
         // Don't need to annotate ids nor files.
 
         return $plugin;
     }
-    protected function add_question_qtype_pmatchjme_answers($element) {
+
+    /**
+     * Add pmatchjme answer data to the backup structure.
+     *
+     * @param object $element The parent backup element.
+     * @throws backup_step_exception If the given element is not a backup_nested_element.
+     */
+    protected function add_question_qtype_pmatchjme_answers($element): void {
         // Check $element is one nested_backup_element.
         if (! $element instanceof backup_nested_element) {
             throw new backup_step_exception('question_pmatchjme_answers_bad_parent_element',
@@ -81,8 +90,8 @@ class backup_qtype_pmatchjme_plugin extends backup_qtype_plugin {
 
         // Define the elements.
         $answers = new backup_nested_element('pmatchjme_answers');
-        $answer = new backup_nested_element('pmatchjme_answer', array('id'),
-                                                                array('answerid', 'atomcount'));
+        $answer = new backup_nested_element('pmatchjme_answer', ['id'],
+            ['answerid', 'atomcount']);
 
         // Build the tree.
         $element->add_child($answers);
@@ -95,7 +104,7 @@ class backup_qtype_pmatchjme_plugin extends backup_qtype_plugin {
                      {qtype_pmatchjme_answers} pa
                 WHERE ans.question = :question AND ans.id = pa.answerid
                 ORDER BY id',
-                array('question' => backup::VAR_PARENTID));
+                ['question' => backup::VAR_PARENTID]);
         // Don't need to annotate ids nor files.
     }
 }

@@ -29,3 +29,5 @@ Feature: Test editing a pattern match with JME questions
       | Question name | Edited question name |
     And I press "id_submitbutton"
     Then I should see "Edited question name"
+    And "Pattern-match testing tool" "link" should not exist in the "Edited question name" "table_row"
+    And "Pattern-match testing tool" "link" should not exist in the "Edited question name" "table_row"

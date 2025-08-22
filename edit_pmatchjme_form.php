@@ -17,8 +17,7 @@
 /**
  * Defines the editing form for the pmatch question type.
  *
- * @package    qtype
- * @subpackage pmatchjme
+ * @package    qtype_pmatchjme
  * @copyright  2007 Jamie Pratt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -34,10 +33,13 @@ require_once($CFG->dirroot.'/question/type/pmatch/edit_pmatch_form.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
+
+    #[\Override]
     public function qtype() {
         return 'pmatchjme';
     }
 
+    #[\Override]
     protected function general_answer_fields($mform) {
         $mform->addElement('header', 'generalheader', get_string('answeringoptions', 'qtype_pmatchjme'));
         $mform->addElement('advcheckbox', 'allowsuperscript', '', get_string('autoez', 'qtype_pmatchjme'));
@@ -46,6 +48,7 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
         $mform->setDefault('allowsubscript', $this->get_default_value('allowsubscript', '0'));
     }
 
+    #[\Override]
     protected function get_per_answer_fields($mform, $label, $gradeoptions, &$repeatedoptions, &$answersoption) {
         $repeated = parent::get_per_answer_fields($mform, $label, $gradeoptions, $repeatedoptions, $answersoption);
         $repeated[] = $mform->createElement('advcheckbox', 'atomcount', '',
@@ -53,11 +56,13 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
         return $repeated;
     }
 
+    #[\Override]
     protected function add_other_answer_fields($mform) {
         parent::add_other_answer_fields($mform);
         $mform->addElement('advcheckbox', 'atomcount_other', '', get_string('atomcount', 'qtype_pmatchjme'));
     }
 
+    #[\Override]
     protected function data_preprocessing_hints($question, $withclearwrong = false,
                                                 $withshownumpartscorrect = false) {
         $withclearwrong = true;
@@ -65,6 +70,7 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
                                                                         $withshownumpartscorrect);
     }
 
+    #[\Override]
     protected function get_hint_fields($withclearwrong = false, $withshownumpartscorrect = false) {
         list($repeated, $repeatedoptions) = parent::get_hint_fields(false, false);
 
@@ -72,14 +78,15 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
         $repeated[] = $mform->createElement('advcheckbox', 'hintclearwrong',
                                             get_string('options', 'question'),
                                             get_string('allowanothertry', 'qtype_pmatchjme'));
-        return array($repeated, $repeatedoptions);
+        return [$repeated, $repeatedoptions];
     }
 
     /**
-     * Perform the necessary preprocessing for the fields added by
-     * {@link add_per_answer_fields()}.
-     * @param object $question the data being passed to the form.
-     * @return object $question the modified data.
+     * Performs preprocessing for the fields added by {@see add_per_answer_fields()}.
+     *
+     * @param object $question The data passed to the form.
+     * @param bool $withanswerfiles Whether to include answer files during preprocessing.
+     * @return object The modified question data.
      */
     protected function data_preprocessing_answers($question, $withanswerfiles = false) {
         $question = parent::data_preprocessing_answers($question);
@@ -94,10 +101,11 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
         return $question;
     }
 
+    #[\Override]
     protected function data_preprocessing_other_answer($question) {
         if ($this->otheranswer) {
             if (!isset($question->atomcount)) {
-                $question->atomcount = array();
+                $question->atomcount = [];
             }
             $question->atomcount_other = $this->otheranswer->atomcount;
         }
@@ -105,11 +113,18 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
         return $question;
     }
 
+    /**
+     * Check if the given string matches a straight smiles pattern.
+     *
+     * @param string $string The input string to check.
+     * @return bool True if the string matches the pattern, false otherwise.
+     */
     protected function straight_smiles_string_match($string) {
         $ciw = '('.PMATCH_CHARACTER .'|'. '\\\\'.PMATCH_SPECIAL_CHARACTER.')';
         return (1 == preg_match("~match\({$ciw}+\)~i", $string));
     }
 
+    #[\Override]
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);
         $answers = $data['answer'];
@@ -134,7 +149,8 @@ class qtype_pmatchjme_edit_form extends qtype_pmatch_edit_form {
         return $errors;
     }
 
+    #[\Override]
     protected function place_holder_errors($questiontext, $usesub) {
-        return array();
+        return [];
     }
 }

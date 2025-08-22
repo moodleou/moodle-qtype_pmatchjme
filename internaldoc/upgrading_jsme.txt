@@ -12,4 +12,4 @@ This explains how to update the version of JSME embedded in this plugin
 
 6. Test manually.
 
-7. Commit and push for testing. 
+7. Commit and push for testing.

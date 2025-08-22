@@ -39,25 +39,39 @@ require_once($CFG->dirroot . '/question/type/pmatch/pmatchlib.php');
  * @covers \pmatch_options
  * @covers \pmatch_parsed_string
  */
-class chemicalexpressionmatching_test extends \basic_testcase {
+final class chemicalexpressionmatching_test extends \basic_testcase {
 
-    protected function match($string, $expression, $options = null) {
+    /**
+     * Check if a string matches a given pmatch expression.
+     *
+     * @param string $string The input string.
+     * @param string $expression The pattern expression.
+     * @param mixed|null $options Optional parsing or matching options.
+     * @return bool True if matched, false otherwise.
+     */
+    protected function match(string $string, string $expression, mixed $options = null): bool {
         $string = new \pmatch_parsed_string($string, $options);
         $expression = new \pmatch_expression($expression, $options);
         return $expression->matches($string);
     }
 
-    public function test_pmatch_parse_string() {
+    /**
+     * Test parsing of a SMILES string using pmatch_parsed_string.
+     */
+    public function test_pmatch_parse_string(): void {
         $options = new \pmatch_options();
 
         $parsedstring = new \pmatch_parsed_string('CC(=O)O', $options);
-        $this->assertEquals($parsedstring->get_words(), array('CC(=O)O'));
+        $this->assertEquals($parsedstring->get_words(), ['CC(=O)O']);
 
         $parsedstring = new \pmatch_parsed_string('CC2COc1ccccc1N2C(=O)C(Cl)Cl', $options);
-        $this->assertEquals($parsedstring->get_words(), array('CC2COc1ccccc1N2C(=O)C(Cl)Cl'));
+        $this->assertEquals($parsedstring->get_words(), ['CC2COc1ccccc1N2C(=O)C(Cl)Cl']);
     }
 
-    public function test_pmatch_matching() {
+    /**
+     * Test matching of SMILES strings against pmatch expressions.
+     */
+    public function test_pmatch_matching(): void {
         $this->assertTrue($this->match('CC(=O)O', 'match(CC\(=O\)O)'));
         $this->assertTrue($this->match('CC2COc1ccccc1N2C(=O)C(Cl)Cl',
                                         'match(CC2COc1ccccc1N2C\(=O\)C\(Cl\)Cl)'));

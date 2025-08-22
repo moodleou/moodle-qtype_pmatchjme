@@ -1,5 +1,11 @@
 # Change log for the Pattern match with JME question type
 
+## Changes 2.4
+
+* This version works with Moodle 4.5/5.0
+* Update the JME edit to the latest version.
+* Update Behat tests to work in Moodle 5.0.
+
 ## Changes 2.3
 
 * This version works with Moodle 4.0.

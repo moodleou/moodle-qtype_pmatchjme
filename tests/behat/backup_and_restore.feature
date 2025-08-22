@@ -19,16 +19,17 @@ Feature: Test duplicating a quiz containing a pattern match with JME question
       | quiz       | Test quiz | C1     | quiz1    |
     And quiz "Test quiz" contains the following questions:
       | Draw benzene | 1 |
-    And I log in as "admin"
-    And I am on "Course 1" course homepage
+    And the following config values are set as admin:
+      | enableasyncbackup | 0 |
 
   @javascript
   Scenario: Backup and restore a course containing a pattern match with JME question
-    When I backup "Course 1" course using this options:
+    When I am on the "Course 1" course page logged in as admin
+    And I backup "Course 1" course using this options:
       | Confirmation | Filename | test_backup.mbz |
     And I restore "test_backup.mbz" backup into a new course using this options:
       | Schema | Course name | Course 2 |
-    And I navigate to "Question bank" in current page administration
+    And I am on the "Course 1" "core_question > course question bank" page
     And I choose "Edit question" action for "Draw benzene" in the question bank
     Then the following fields match these values:
       | Question name       | Draw benzene                            |

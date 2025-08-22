@@ -35,7 +35,7 @@ function xmldb_qtype_pmatchjme_upgrade($oldversion) {
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2012062300) {
-        $toupdate = $DB->get_records_menu("question", array('qtype' => 'pmatchjme'), '', 'id, 0');
+        $toupdate = $DB->get_records_menu("question", ['qtype' => 'pmatchjme'], '', 'id, 0');
 
         if ($toupdate) {
             list($qidssql, $qids) = $DB->get_in_or_equal(array_keys($toupdate));
@@ -50,7 +50,7 @@ function xmldb_qtype_pmatchjme_upgrade($oldversion) {
 
         // Define key answerid_fk (foreign-unique) to be dropped form qtype_pmatchjme_answers.
         $table = new xmldb_table('qtype_pmatchjme_answers');
-        $key = new xmldb_key('answerid_fk', XMLDB_KEY_FOREIGN_UNIQUE, array('answerid'), 'question_answers', array('id'));
+        $key = new xmldb_key('answerid_fk', XMLDB_KEY_FOREIGN_UNIQUE, ['answerid'], 'question_answers', ['id']);
 
         // Launch drop key answerid_fk.
         $dbman->drop_key($table, $key);
@@ -76,7 +76,7 @@ function xmldb_qtype_pmatchjme_upgrade($oldversion) {
 
         // Define key answerid_fk (foreign-unique) to be added to qtype_pmatchjme_answers.
         $table = new xmldb_table('qtype_pmatchjme_answers');
-        $key = new xmldb_key('answerid_fk', XMLDB_KEY_FOREIGN_UNIQUE, array('answerid'), 'question_answers', array('id'));
+        $key = new xmldb_key('answerid_fk', XMLDB_KEY_FOREIGN_UNIQUE, ['answerid'], 'question_answers', ['id']);
 
         // Launch add key answerid_fk.
         $dbman->add_key($table, $key);

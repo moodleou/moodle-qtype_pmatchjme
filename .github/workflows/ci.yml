@@ -8,19 +8,19 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php: '8.0'
-            moodle-branch: 'master'
+          - php: '8.3'
+            moodle-branch: 'main'
             database: 'pgsql'
-          - php: '7.4'
-            moodle-branch: 'MOODLE_400_STABLE'
+          - php: '8.3'
+            moodle-branch: 'MOODLE_500_STABLE'
             database: 'mariadb'
-          - php: '7.3'
-            moodle-branch: 'MOODLE_311_STABLE'
+          - php: '8.2'
+            moodle-branch: 'MOODLE_405_STABLE'
             database: 'pgsql'
 
     services:
       postgres:
-        image: postgres:12
+        image: postgres:15
         env:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
@@ -39,7 +39,7 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
         ports:
           - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 3
+        options: --health-cmd="mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 4
 
     steps:
       - name: Check out repository code
@@ -57,7 +57,7 @@ jobs:
 
       - name: Initialise moodle-plugin-ci
         run: |
-          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
+          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
           echo $(cd ci/bin; pwd) >> $GITHUB_PATH
           echo $(cd ci/vendor/bin; pwd) >> $GITHUB_PATH
           sudo locale-gen en_AU.UTF-8
@@ -105,7 +105,7 @@ jobs:
         run: moodle-plugin-ci mustache
 
       - name: Grunt
-        if: ${{ matrix.moodle-branch == 'MOODLE_400_STABLE' }}
+        if: ${{ always() }}
         run: moodle-plugin-ci grunt --max-lint-warnings 0
 
       - name: PHPUnit tests

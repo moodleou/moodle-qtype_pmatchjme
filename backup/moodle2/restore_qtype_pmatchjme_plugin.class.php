@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Restore qtype pmatchjme plugin.
+ *
  * @package   qtype_pmatchjme
  * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -34,7 +36,7 @@ class restore_qtype_pmatchjme_plugin extends restore_qtype_plugin {
      */
     protected function define_question_plugin_structure() {
 
-        $paths = array();
+        $paths = [];
 
         // This qtype uses question_answers, add them.
         $this->add_question_question_answers($paths);
@@ -55,10 +57,63 @@ class restore_qtype_pmatchjme_plugin extends restore_qtype_plugin {
         return $paths;
     }
 
+    #[\Override]
+    public static function convert_backup_to_questiondata(array $backupdata): \stdClass {
+        $questiondata = parent::convert_backup_to_questiondata($backupdata);
+        $qtype = $questiondata->qtype;
+        if (isset($backupdata["plugin_qtype_{$qtype}_question"]['pmatchjme'])) {
+            $questiondata->options = (object) array_merge(
+                (array) $questiondata->options,
+                $backupdata["plugin_qtype_{$qtype}_question"]['pmatchjme'][0],
+            );
+        }
+
+        if (isset($backupdata["plugin_qtype_{$qtype}_question"]['synonyms']['synonym'])) {
+            $questiondata->options->synonyms = [];
+            foreach ($backupdata["plugin_qtype_{$qtype}_question"]['synonyms']['synonym'] as $synonym) {
+                $questiondata->options->synonyms[] = (object) $synonym;
+            }
+        }
+        if (isset($backupdata["plugin_qtype_{$qtype}_question"]['pmatchjme_answers']['pmatchjme_answer'])) {
+            foreach ($backupdata["plugin_qtype_{$qtype}_question"]['pmatchjme_answers']['pmatchjme_answer'] as $pmatchjmeanswer) {
+                foreach ($questiondata->options->answers as &$answer) {
+                    if ($answer->id == $pmatchjmeanswer['answerid']) {
+                        $answer->atomcount = $pmatchjmeanswer['atomcount'];
+                        continue 2;
+                    }
+                }
+            }
+        }
+
+        return $questiondata;
+    }
+
+    #[\Override]
+    protected function define_excluded_identity_hash_fields(): array {
+        // Those field are covered by pmatch.
+        return [
+            'options/synonyms/id',
+            'options/synonyms/questionid',
+            'options/responsetemplate',
+            'options/sentencedividers',
+            'options/modelanswer',
+            'options/quotematching',
+        ];
+    }
+
+    #[\Override]
+    public static function remove_excluded_question_data(stdClass $questiondata, array $excludefields = []): stdClass {
+        // Option responsetemplate default is null, we need to remove it completely.
+        unset($questiondata->options->responsetemplate);
+        return parent::remove_excluded_question_data($questiondata, $excludefields);
+    }
+
     /**
      * Process the qtype/pmatch element.
+     *
+     * @param array $data the data from the backup file.
      */
-    public function process_pmatch($data) {
+    public function process_pmatch(array $data) {
         global $DB;
 
         $data = (object)$data;
@@ -83,8 +138,10 @@ class restore_qtype_pmatchjme_plugin extends restore_qtype_plugin {
 
     /**
      * Process the qtype/varnumericset_answer element.
+     *
+     * @param array $data the data from the backup file.
      */
-    public function process_pmatchjme_answer($data) {
+    public function process_pmatchjme_answer(array $data) {
         global $DB;
 
         $data = (object)$data;
@@ -104,8 +161,10 @@ class restore_qtype_pmatchjme_plugin extends restore_qtype_plugin {
 
     /**
      * Process the qtype/synonyms/synonym element.
+     *
+     * @param array $data the data from the backup file.
      */
-    public function process_synonym($data) {
+    public function process_synonym(array $data) {
         global $DB;
 
         $data = (object)$data;

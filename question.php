@@ -38,6 +38,9 @@ class qtype_pmatchjme_question extends qtype_pmatch_question {
     /** @var bool whether answers should be graded case-sensitively. */
     public $usecase;
 
+    /** @var int quotematching */
+    public int $quotematching;
+
     #[\Override]
     public function get_expected_data() {
         return ['answer' => PARAM_RAW, 'jme' => PARAM_RAW, 'mol' => PARAM_RAW];
